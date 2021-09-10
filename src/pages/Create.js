@@ -1,14 +1,38 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core';
-import { Container, Typography, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { makeStyles, Container } from '@material-ui/core';
+import { TextField, Typography, Button } from '@material-ui/core';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 const useStyles = makeStyles({
-  btn: { fontSize: 20},
+  field: {
+    marginTop: 20,
+    marginBottom: 20,
+    display: 'block',
+  },
 });
 
 const Create = () => {
   const classes = useStyles();
+
+  const [title, setTitle] = useState('');
+  const [details, setDetails] = useState('');
+  const [titleError, setTitleError] = useState(false);
+  const [detailsError, setDetailsError] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTitleError(false);
+    setDetailsError(false);
+    if (title === '') {
+      setTitleError(true);
+    }
+    if (details === '') {
+      setDetailsError(true);
+    }
+    if (title && details) {
+      console.log(title, details);
+    }
+  };
 
   return (
     <Container>
@@ -20,15 +44,42 @@ const Create = () => {
       >
         Create a New Note
       </Typography>
-      <Button
-        className={classes.btn}
-        type='submit'
-        variant='contained'
-        color='secondary'
-        endIcon={<KeyboardArrowRightIcon />}
+      <form
+        onSubmit={handleSubmit}
+        autoComplete='off'
+        noValidate
       >
-        Submit
-      </Button>
+        <TextField
+          onChange={(e) => setTitle(e.target.value)}
+          error={titleError}
+          className={classes.field}
+          label='Title'
+          variant='outlined'
+          color='primary'
+          fullWidth
+          required
+        />
+        <TextField
+          onChange={(e) => setDetails(e.target.value)}
+          error={detailsError}
+          className={classes.field}
+          label='Details'
+          variant='outlined'
+          color='primary'
+          rows={4}
+          multiline
+          fullWidth
+          required
+        />
+        <Button
+          type='submit'
+          variant='contained'
+          color='primary'
+          endIcon={<KeyboardArrowRightIcon />}
+        >
+          Submit
+        </Button>
+      </form>
     </Container>
   )
 };
