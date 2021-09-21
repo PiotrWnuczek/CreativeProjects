@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles, Container } from '@material-ui/core';
 import { FormControl, FormLabel, FormControlLabel } from '@material-ui/core';
 import { TextField, Typography, Button, Radio, RadioGroup } from '@material-ui/core';
@@ -14,6 +15,7 @@ const useStyles = makeStyles({
 
 const Create = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
@@ -32,7 +34,11 @@ const Create = () => {
       setDetailsError(true);
     }
     if (title && details) {
-      console.log(title, details, category);
+      fetch('http://localhost:8000/notes', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({ title, details, category }),
+      }).then(history.push('/'))
     }
   };
 
