@@ -12,7 +12,7 @@ const Notes = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    await fetch('http://localhost:8000/notes' + id, {
+    await fetch('http://localhost:8000/notes/' + id, {
       method: 'DELETE'
     })
     setNotes(notes.filter(note => note.id !== id))
