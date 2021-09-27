@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles, Container } from '@material-ui/core';
 import { FormControl, FormLabel, FormControlLabel } from '@material-ui/core';
 import { TextField, Typography, Button, Radio, RadioGroup } from '@material-ui/core';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import { KeyboardArrowRight } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   field: {
@@ -111,7 +111,7 @@ const Create = () => {
           type='submit'
           variant='contained'
           color='primary'
-          endIcon={<KeyboardArrowRightIcon />}
+          endIcon={<KeyboardArrowRight />}
         >
           Submit
         </Button>
