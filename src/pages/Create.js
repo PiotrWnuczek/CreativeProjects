@@ -109,8 +109,8 @@ const Create = () => {
         </FormControl>
         <Button
           type='submit'
+          color='secondary'
           variant='contained'
-          color='primary'
           endIcon={<KeyboardArrowRight />}
         >
           Submit
