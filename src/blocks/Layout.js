@@ -1,5 +1,8 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { makeStyles, Drawer, Typography } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { AddCircleOutlined, SubjectOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   page: {
@@ -16,10 +19,28 @@ const useStyles = makeStyles({
   paper: {
     width: 250,
   },
+  active: {
+    background: '#f4f4f4',
+  },
 });
 
 const Layout = ({ children }) => {
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+
+  const menu = [
+    {
+      text: 'My Notes',
+      icon: <SubjectOutlined color='secondary' />,
+      path: '/',
+    },
+    {
+      text: 'Create Note',
+      icon: <AddCircleOutlined color='secondary' />,
+      path: '/create',
+    },
+  ];
 
   return (
     <div className={classes.root}>
@@ -32,6 +53,18 @@ const Layout = ({ children }) => {
         <Typography variant='h5'>
           Material App
         </Typography>
+        <List>
+          {menu.map(item =>
+            <ListItem button
+              key={item.text}
+              onClick={() => history.push(item.path)}
+              className={location.pathname === item.path && classes.active}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          )}
+        </List>
       </Drawer>
       <div className={classes.page}>
         {children}
