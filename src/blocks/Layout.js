@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { makeStyles, Drawer, Typography, AppBar, Toolbar } from '@material-ui/core';
-import { List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemIcon, Avatar } from '@material-ui/core';
 import { AddCircleOutlined, SubjectOutlined } from '@material-ui/icons';
 import { format } from 'date-fns';
 
@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
   date: {
     flexGrow: 1,
+  },
+  avatar: {
+    marginLeft: theme.spacing(1),
   },
   appbar: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -68,6 +71,7 @@ const Layout = ({ children }) => {
           <Typography>
             Piotr
           </Typography>
+          <Avatar src='/logo512.png' className={classes.avatar} />
         </Toolbar>
       </AppBar>
       <Drawer

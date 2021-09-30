@@ -63,7 +63,7 @@ const Create = () => {
           className={classes.field}
           label='Title'
           variant='outlined'
-          color='primary'
+          color='secondary'
           fullWidth
           required
         />
@@ -73,7 +73,7 @@ const Create = () => {
           className={classes.field}
           label='Details'
           variant='outlined'
-          color='primary'
+          color='secondary'
           rows={4}
           multiline
           fullWidth
