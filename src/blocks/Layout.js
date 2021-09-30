@@ -4,11 +4,11 @@ import { makeStyles, Drawer, Typography } from '@material-ui/core';
 import { List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { AddCircleOutlined, SubjectOutlined } from '@material-ui/icons';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   page: {
     background: '#f9f9f9',
     width: '100%',
-    height: '100%',
+    padding: theme.spacing(3),
   },
   root: {
     display: 'flex',
@@ -22,7 +22,10 @@ const useStyles = makeStyles({
   active: {
     background: '#f4f4f4',
   },
-});
+  title: {
+    padding: theme.spacing(2),
+  },
+}));
 
 const Layout = ({ children }) => {
   const classes = useStyles();
@@ -50,7 +53,7 @@ const Layout = ({ children }) => {
         variant='permanent'
         anchor='left'
       >
-        <Typography variant='h5'>
+        <Typography variant='h5' className={classes.title}>
           Material App
         </Typography>
         <List>
