@@ -9,6 +9,7 @@ import Notes from 'pages/Notes';
 
 const theme = createTheme({
   palette: {
+    primary: { main: '#fefefe' },
     secondary: blue,
   },
   typography: {
