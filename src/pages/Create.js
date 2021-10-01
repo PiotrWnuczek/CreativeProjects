@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles, Container } from '@material-ui/core';
-import { FormControl, FormLabel, FormControlLabel } from '@material-ui/core';
-import { TextField, Typography, Button, Radio, RadioGroup } from '@material-ui/core';
-import { KeyboardArrowRight } from '@material-ui/icons';
+import { Container, Typography, Button, Radio, RadioGroup } from '@mui/material';
+import { FormControl, FormLabel, FormControlLabel, TextField } from '@mui/material';
+import { KeyboardArrowRight } from '@mui/icons-material';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   field: {

@@ -1,8 +1,9 @@
 import React from 'react';
-import { makeStyles, IconButton, Typography } from '@material-ui/core';
-import { Card, CardHeader, CardContent, Avatar } from '@material-ui/core';
-import { yellow, green, red, blue } from '@material-ui/core/colors';
-import { DeleteOutlined } from '@material-ui/icons';
+import { IconButton, Typography } from '@mui/material';
+import { Card, CardHeader, CardContent, Avatar } from '@mui/material';
+import { yellow, green, red, blue } from '@mui/material/colors';
+import { DeleteOutlined } from '@mui/icons-material';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   avatar: {
