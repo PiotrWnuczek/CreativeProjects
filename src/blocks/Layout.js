@@ -3,45 +3,23 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Drawer, Typography, AppBar, Toolbar } from '@mui/material';
 import { List, ListItem, ListItemText, ListItemIcon, Avatar } from '@mui/material';
 import { AddCircleOutlined, SubjectOutlined } from '@mui/icons-material';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/system';
 import { format } from 'date-fns';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
-  page: {
-    width: '100%',
-    padding: theme.spacing(3),
-  },
-  root: {
-    display: 'flex',
-  },
-  drawer: {
-    width: drawerWidth,
-  },
-  paper: {
-    width: drawerWidth,
-  },
-  active: {
-    background: '#f4f4f4',
-  },
-  title: {
-    padding: theme.spacing(2),
-  },
-  date: {
-    flexGrow: 1,
-  },
-  avatar: {
-    marginLeft: theme.spacing(1),
-  },
-  appbar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-  },
-  toolbar: theme.mixins.toolbar,
+const StyledPage = styled('div')(({ theme }) => ({
+  width: '100%',
+  padding: theme.spacing(3),
 }));
 
+const StyledRoot = styled('div')({
+  display: 'flex',
+});
+
+const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+
 const Layout = ({ children }) => {
-  const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
 
@@ -59,36 +37,35 @@ const Layout = ({ children }) => {
   ];
 
   return (
-    <div className={classes.root}>
+    <StyledRoot>
       <AppBar
-        className={classes.appbar}
+        sx={{ width: `calc(100% - ${drawerWidth}px)` }}
         elevation={0}
       >
         <Toolbar>
-          <Typography className={classes.date}>
+          <Typography sx={{ flexGrow: 1 }}>
             Today is the {format(new Date(), 'do MMMM Y')}
           </Typography>
           <Typography>
             Piotr
           </Typography>
-          <Avatar src='/logo512.png' className={classes.avatar} />
+          <Avatar sx={{ ml: 2 }} src='/logo512.png' />
         </Toolbar>
       </AppBar>
       <Drawer
-        className={classes.drawer}
-        classes={{ paper: classes.paper }}
+        sx={{ width: drawerWidth, '& .MuiDrawer-paper': { width: drawerWidth } }}
         variant='permanent'
         anchor='left'
       >
-        <Typography variant='h5' className={classes.title}>
+        <Typography sx={{ p: 2 }} variant='h5'>
           Material App
         </Typography>
         <List>
           {menu.map(item =>
             <ListItem button
-              key={item.text}
+              sx={location.pathname === item.path && { background: '#f4f4f4' }}
               onClick={() => history.push(item.path)}
-              className={location.pathname === item.path && classes.active}
+              key={item.text}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
@@ -96,11 +73,10 @@ const Layout = ({ children }) => {
           )}
         </List>
       </Drawer>
-      <div className={classes.page}>
-        <div className={classes.toolbar} />
-        {children}
-      </div>
-    </div>
+      <StyledPage>
+        <Offset /> {children}
+      </StyledPage>
+    </StyledRoot>
   )
 };
 

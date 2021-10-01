@@ -3,34 +3,20 @@ import { IconButton, Typography } from '@mui/material';
 import { Card, CardHeader, CardContent, Avatar } from '@mui/material';
 import { yellow, green, red, blue } from '@mui/material/colors';
 import { DeleteOutlined } from '@mui/icons-material';
-import { makeStyles } from '@mui/styles';
-
-const useStyles = makeStyles({
-  avatar: {
-    background: (task) => {
-      if (task.category === 'work') {
-        return yellow[700];
-      }
-      if (task.category === 'money') {
-        return green[700];
-      }
-      if (task.category === 'todos') {
-        return red[700];
-      }
-      return blue[700];
-    },
-  },
-});
 
 const Task = ({ task, handleDelete }) => {
-  const classes = useStyles(task);
+  let avatarColor = blue[700];
+
+  if (task.category === 'work') { avatarColor = yellow[700] }
+  if (task.category === 'money') { avatarColor = green[700] }
+  if (task.category === 'todos') { avatarColor = red[700] }
 
   return (
     <div>
       <Card elevation={1}>
         <CardHeader
           avatar={
-            <Avatar className={classes.avatar}>
+            <Avatar sx={{ backgroundColor: avatarColor }}>
               {task.category[0].toUpperCase()}
             </Avatar>
           }

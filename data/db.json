@@ -11,12 +11,6 @@
       "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.",
       "category": "work",
       "id": 2
-    },
-    {
-      "title": "lorem ipsum",
-      "details": "lorem ipsum dolor sit amet",
-      "category": "todos",
-      "id": 3
     }
   ]
 }
