@@ -34,7 +34,7 @@ const Create = () => {
       setDetailsError(true);
     }
     if (title && details) {
-      fetch('http://localhost:8000/notes', {
+      fetch('http://localhost:8000/tasks', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ title, details, category }),
@@ -50,7 +50,7 @@ const Create = () => {
         color='textSecondary'
         gutterBottom
       >
-        Create a New Note
+        Create a New Task
       </Typography>
       <form
         onSubmit={handleSubmit}

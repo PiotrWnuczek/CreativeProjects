@@ -6,14 +6,14 @@ import { DeleteOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   avatar: {
-    background: (note) => {
-      if (note.category === 'work') {
+    background: (task) => {
+      if (task.category === 'work') {
         return yellow[700];
       }
-      if (note.category === 'money') {
+      if (task.category === 'money') {
         return green[700];
       }
-      if (note.category === 'todos') {
+      if (task.category === 'todos') {
         return red[700];
       }
       return blue[700];
@@ -21,8 +21,8 @@ const useStyles = makeStyles({
   },
 });
 
-const Note = ({ note, handleDelete }) => {
-  const classes = useStyles(note);
+const Task = ({ task, handleDelete }) => {
+  const classes = useStyles(task);
 
   return (
     <div>
@@ -30,20 +30,20 @@ const Note = ({ note, handleDelete }) => {
         <CardHeader
           avatar={
             <Avatar className={classes.avatar}>
-              {note.category[0].toUpperCase()}
+              {task.category[0].toUpperCase()}
             </Avatar>
           }
           action={
-            <IconButton onClick={() => handleDelete(note.id)}>
+            <IconButton onClick={() => handleDelete(task.id)}>
               <DeleteOutlined />
             </IconButton>
           }
-          title={note.title}
-          subheader={note.category}
+          title={task.title}
+          subheader={task.category}
         />
         <CardContent>
           <Typography variant='body2' color='textSecondary'>
-            {note.details}
+            {task.details}
           </Typography>
         </CardContent>
       </Card>
@@ -51,4 +51,4 @@ const Note = ({ note, handleDelete }) => {
   )
 };
 
-export default Note;
+export default Task;

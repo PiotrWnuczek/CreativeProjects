@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from '@material-ui/core';
 import Masonry from 'react-masonry-css';
-import Note from 'blocks/Note';
+import Task from 'blocks/Task';
 
-const Notes = () => {
-  const [notes, setNotes] = useState([]);
+const Tasks = () => {
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/notes')
+    fetch('http://localhost:8000/tasks')
       .then(res => res.json())
-      .then(data => setNotes(data))
+      .then(data => setTasks(data))
       .catch(err => console.log(err))
   }, []);
 
   const handleDelete = async (id) => {
-    await fetch('http://localhost:8000/notes/' + id, {
+    await fetch('http://localhost:8000/tasks/' + id, {
       method: 'DELETE'
     })
-    setNotes(notes.filter(note => note.id !== id))
+    setTasks(tasks.filter(task => task.id !== id))
   };
 
   const breakpoints = {
@@ -32,9 +32,9 @@ const Notes = () => {
         breakpointCols={breakpoints}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column">
-        {notes.map(note => (
-          <div key={note.id}>
-            <Note note={note} handleDelete={handleDelete} />
+        {tasks.map(task => (
+          <div key={task.id}>
+            <Task task={task} handleDelete={handleDelete} />
           </div>
         ))}
       </Masonry>
@@ -42,4 +42,4 @@ const Notes = () => {
   )
 };
 
-export default Notes;
+export default Tasks;

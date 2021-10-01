@@ -5,7 +5,7 @@ import { createTheme } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
 import Layout from 'blocks/Layout';
 import Create from 'pages/Create';
-import Notes from 'pages/Notes';
+import Tasks from 'pages/Tasks';
 
 const theme = createTheme({
   palette: {
@@ -26,7 +26,7 @@ const App = () => (
     <BrowserRouter>
       <Layout>
         <Switch>
-          <Route exact path='/'><Notes /></Route>
+          <Route exact path='/'><Tasks /></Route>
           <Route path='/create'><Create /></Route>
         </Switch>
       </Layout>
