@@ -3,9 +3,10 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material';
 import { blue } from '@mui/material/colors';
-import Layout from 'blocks/Layout';
-import Create from 'pages/Create';
-import Projects from 'pages/Projects';
+import CreateProjects from 'pages/CreateProjects';
+import PrivateProjects from 'pages/PrivateProjects';
+import PublicProjects from 'pages/PublicProjects';
+import UserLayout from 'templates/UserLayout';
 
 const theme = createTheme({
   palette: {
@@ -24,12 +25,13 @@ const theme = createTheme({
 const App = () => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
-      <Layout>
+      <UserLayout>
         <Switch>
-          <Route exact path='/'><Projects /></Route>
-          <Route path='/create'><Create /></Route>
+          <Route path='/create'><CreateProjects /></Route>
+          <Route path='/private'><PrivateProjects /></Route>
+          <Route path='/public'><PublicProjects /></Route>
         </Switch>
-      </Layout>
+      </UserLayout>
     </BrowserRouter>
   </ThemeProvider>
 );

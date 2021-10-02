@@ -4,7 +4,7 @@ import { Card, CardHeader, CardContent, Avatar } from '@mui/material';
 import { yellow, green, red, blue } from '@mui/material/colors';
 import { DeleteOutlined } from '@mui/icons-material';
 
-const Project = ({ project, handleDelete }) => {
+const ProjectCard = ({ project, handleDelete }) => {
   let avatarColor = blue[700];
 
   if (project.category === 'work') { avatarColor = yellow[700] }
@@ -38,4 +38,4 @@ const Project = ({ project, handleDelete }) => {
   )
 };
 
-export default Project;
+export default ProjectCard;

@@ -4,7 +4,7 @@ import { Container, Typography, Button, Radio, RadioGroup } from '@mui/material'
 import { FormControl, FormLabel, FormControlLabel, TextField } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 
-const Create = () => {
+const CreateProjects = () => {
   const history = useHistory();
 
   const [title, setTitle] = useState('');
@@ -110,4 +110,4 @@ const Create = () => {
   )
 };
 
-export default Create;
+export default CreateProjects;

@@ -19,7 +19,7 @@ const StyledRoot = styled('div')({
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
-const Layout = ({ children }) => {
+const UserLayout = ({ children }) => {
   const history = useHistory();
   const location = useLocation();
 
@@ -80,4 +80,4 @@ const Layout = ({ children }) => {
   )
 };
 
-export default Layout;
+export default UserLayout;

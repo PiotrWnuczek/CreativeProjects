@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
 import Masonry from 'react-masonry-css';
-import Project from 'blocks/Project';
+import ProjectCard from 'moleculs/ProjectCard';
 
-const Projects = () => {
+const PublicProjects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Projects = () => {
         columnClassName="my-masonry-grid_column">
         {projects.map(project => (
           <div key={project.id}>
-            <Project project={project} handleDelete={handleDelete} />
+            <ProjectCard project={project} handleDelete={handleDelete} />
           </div>
         ))}
       </Masonry>
@@ -42,4 +42,4 @@ const Projects = () => {
   )
 };
 
-export default Projects;
+export default PublicProjects;
