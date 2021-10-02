@@ -24,7 +24,7 @@ const Create = () => {
       setDetailsError(true);
     }
     if (title && details) {
-      fetch('http://localhost:8000/tasks', {
+      fetch('http://localhost:8000/projects', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ title, details, category }),
@@ -70,7 +70,7 @@ const Create = () => {
           required
         />
         <FormControl sx={{ mt: 2, mb: 2, display: 'block' }}>
-          <FormLabel color='secondary'>Task Category</FormLabel>
+          <FormLabel color='secondary'>Project Category</FormLabel>
           <RadioGroup
             value={category}
             onChange={e => setCategory(e.target.value)}

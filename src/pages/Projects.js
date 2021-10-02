@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
 import Masonry from 'react-masonry-css';
-import Task from 'blocks/Task';
+import Project from 'blocks/Project';
 
-const Tasks = () => {
-  const [tasks, setTasks] = useState([]);
+const Projects = () => {
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/tasks')
+    fetch('http://localhost:8000/projects')
       .then(res => res.json())
-      .then(data => setTasks(data))
+      .then(data => setProjects(data))
       .catch(err => console.log(err))
   }, []);
 
   const handleDelete = async (id) => {
-    await fetch('http://localhost:8000/tasks/' + id, {
+    await fetch('http://localhost:8000/projects/' + id, {
       method: 'DELETE'
     })
-    setTasks(tasks.filter(task => task.id !== id))
+    setProjects(projects.filter(project => project.id !== id))
   };
 
   const breakpoints = {
@@ -32,9 +32,9 @@ const Tasks = () => {
         breakpointCols={breakpoints}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column">
-        {tasks.map(task => (
-          <div key={task.id}>
-            <Task task={task} handleDelete={handleDelete} />
+        {projects.map(project => (
+          <div key={project.id}>
+            <Project project={project} handleDelete={handleDelete} />
           </div>
         ))}
       </Masonry>
@@ -42,4 +42,4 @@ const Tasks = () => {
   )
 };
 
-export default Tasks;
+export default Projects;

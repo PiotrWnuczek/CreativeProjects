@@ -4,12 +4,12 @@ import { Card, CardHeader, CardContent, Avatar } from '@mui/material';
 import { yellow, green, red, blue } from '@mui/material/colors';
 import { DeleteOutlined } from '@mui/icons-material';
 
-const Task = ({ task, handleDelete }) => {
+const Project = ({ project, handleDelete }) => {
   let avatarColor = blue[700];
 
-  if (task.category === 'work') { avatarColor = yellow[700] }
-  if (task.category === 'money') { avatarColor = green[700] }
-  if (task.category === 'todos') { avatarColor = red[700] }
+  if (project.category === 'work') { avatarColor = yellow[700] }
+  if (project.category === 'money') { avatarColor = green[700] }
+  if (project.category === 'todos') { avatarColor = red[700] }
 
   return (
     <div>
@@ -17,20 +17,20 @@ const Task = ({ task, handleDelete }) => {
         <CardHeader
           avatar={
             <Avatar sx={{ backgroundColor: avatarColor }}>
-              {task.category[0].toUpperCase()}
+              {project.category[0].toUpperCase()}
             </Avatar>
           }
           action={
-            <IconButton onClick={() => handleDelete(task.id)}>
+            <IconButton onClick={() => handleDelete(project.id)}>
               <DeleteOutlined />
             </IconButton>
           }
-          title={task.title}
-          subheader={task.category}
+          title={project.title}
+          subheader={project.category}
         />
         <CardContent>
           <Typography variant='body2' color='textSecondary'>
-            {task.details}
+            {project.details}
           </Typography>
         </CardContent>
       </Card>
@@ -38,4 +38,4 @@ const Task = ({ task, handleDelete }) => {
   )
 };
 
-export default Task;
+export default Project;

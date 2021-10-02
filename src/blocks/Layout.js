@@ -47,7 +47,7 @@ const Layout = ({ children }) => {
             Today is the {format(new Date(), 'do MMMM Y')}
           </Typography>
           <Typography>
-            Piotr
+            React
           </Typography>
           <Avatar sx={{ ml: 2 }} src='/logo512.png' />
         </Toolbar>
