@@ -63,7 +63,7 @@ const UserLayout = ({ children }) => {
         <List>
           {menu.map(item =>
             <ListItem button
-              sx={location.pathname === item.path && { background: '#f4f4f4' }}
+              sx={{ backgroundColor: location.pathname === item.path && '#f4f4f4' }}
               onClick={() => history.push(item.path)}
               key={item.text}
             >

@@ -3,10 +3,14 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material';
 import { blue } from '@mui/material/colors';
-import CreateProjects from 'pages/CreateProjects';
-import PrivateProjects from 'pages/PrivateProjects';
-import PublicProjects from 'pages/PublicProjects';
 import UserLayout from 'templates/UserLayout';
+import ProtectedRoute from 'auth/ProtectedRoute';
+import CreateProjects from 'pages/CreateProjects';
+import PersonalProjects from 'pages/PersonalProjects';
+import SocialProjects from 'pages/SocialProjects';
+import DetailsProject from 'pages/DetailsProject';
+import SigninForm from 'auth/SigninForm';
+import SignupForm from 'auth/SignupForm';
 
 const theme = createTheme({
   palette: {
@@ -27,9 +31,12 @@ const App = () => (
     <BrowserRouter>
       <UserLayout>
         <Switch>
-          <Route path='/create'><CreateProjects /></Route>
-          <Route path='/private'><PrivateProjects /></Route>
-          <Route path='/public'><PublicProjects /></Route>
+          <ProtectedRoute path='/create' component={CreateProjects} />
+          <ProtectedRoute path='/private' component={PersonalProjects} />
+          <ProtectedRoute path='/public' component={SocialProjects} />
+          <ProtectedRoute path='/:type/:id' component={DetailsProject} />
+          <Route path='/signin' component={SigninForm} />
+          <Route path='/signup' component={SignupForm} />
         </Switch>
       </UserLayout>
     </BrowserRouter>

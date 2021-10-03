@@ -3,7 +3,7 @@ import { Container } from '@mui/material';
 import Masonry from 'react-masonry-css';
 import ProjectCard from 'moleculs/ProjectCard';
 
-const PublicProjects = () => {
+const SocialProjects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
@@ -42,4 +42,4 @@ const PublicProjects = () => {
   )
 };
 
-export default PublicProjects;
+export default SocialProjects;
