@@ -1,15 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { remove } from 'logic/projectActions';
 import { IconButton, Typography } from '@mui/material';
 import { Card, CardHeader, CardContent, Avatar } from '@mui/material';
-import { yellow, green, red, blue } from '@mui/material/colors';
+import { red, green, blue } from '@mui/material/colors';
 import { DeleteOutlined } from '@mui/icons-material';
 
-const ProjectCard = ({ project, handleDelete }) => {
+const ProjectCard = ({ project, remove }) => {
   let avatarColor = blue[700];
 
-  if (project.category === 'work') { avatarColor = yellow[700] }
-  if (project.category === 'money') { avatarColor = green[700] }
-  if (project.category === 'todos') { avatarColor = red[700] }
+  if (project.category === 'work') { avatarColor = red[700] }
+  if (project.category === 'life') { avatarColor = green[700] }
 
   return (
     <div>
@@ -21,7 +22,12 @@ const ProjectCard = ({ project, handleDelete }) => {
             </Avatar>
           }
           action={
-            <IconButton onClick={() => handleDelete(project.id)}>
+            <IconButton
+              onClick={() => {
+                console.log({ type: project.type }, project.id);
+                remove({ type: project.type }, project.id);
+              }}
+            >
               <DeleteOutlined />
             </IconButton>
           }
@@ -38,4 +44,9 @@ const ProjectCard = ({ project, handleDelete }) => {
   )
 };
 
-export default ProjectCard;
+const mapDispatchToProps = (dispatch) => ({
+  remove: (data, id) => dispatch(remove(data, id)),
+});
+
+export default connect(null, mapDispatchToProps)
+  (ProjectCard);
