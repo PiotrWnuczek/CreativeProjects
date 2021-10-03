@@ -36,7 +36,7 @@ const ProjectCard = ({ project, remove }) => {
         />
         <CardContent>
           <Typography variant='body2' color='textSecondary'>
-            {project.details}
+            {project.description}
           </Typography>
         </CardContent>
       </Card>

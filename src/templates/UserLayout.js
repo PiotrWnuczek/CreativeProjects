@@ -23,16 +23,34 @@ const UserLayout = ({ children }) => {
   const history = useHistory();
   const location = useLocation();
 
-  const menu = [
+  const loginMenu = [
     {
-      text: 'My Notes',
+      text: 'Personal Notes',
       icon: <SubjectOutlined color='secondary' />,
-      path: '/',
+      path: '/personal',
+    },
+    {
+      text: 'Social Notes',
+      icon: <SubjectOutlined color='secondary' />,
+      path: '/social',
     },
     {
       text: 'Create Note',
       icon: <AddCircleOutlined color='secondary' />,
       path: '/create',
+    },
+  ];
+
+  const logoutMenu = [
+    {
+      text: 'Sign In',
+      icon: <SubjectOutlined color='secondary' />,
+      path: '/signin',
+    },
+    {
+      text: 'Sign Up',
+      icon: <SubjectOutlined color='secondary' />,
+      path: '/signup',
     },
   ];
 
@@ -61,7 +79,19 @@ const UserLayout = ({ children }) => {
           Material App
         </Typography>
         <List>
-          {menu.map(item =>
+          {loginMenu.map(item =>
+            <ListItem button
+              sx={{ backgroundColor: location.pathname === item.path && '#f4f4f4' }}
+              onClick={() => history.push(item.path)}
+              key={item.text}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          )}
+        </List>
+        <List>
+          {logoutMenu.map(item =>
             <ListItem button
               sx={{ backgroundColor: location.pathname === item.path && '#f4f4f4' }}
               onClick={() => history.push(item.path)}
@@ -74,7 +104,8 @@ const UserLayout = ({ children }) => {
         </List>
       </Drawer>
       <StyledPage>
-        <Offset /> {children}
+        <Offset />
+        {children}
       </StyledPage>
     </StyledRoot>
   )

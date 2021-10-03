@@ -32,8 +32,8 @@ const App = () => (
       <UserLayout>
         <Switch>
           <ProtectedRoute path='/create' component={CreateProjects} />
-          <ProtectedRoute path='/personal' component={PersonalProjects} />
-          <ProtectedRoute path='/social' component={SocialProjects} />
+          <ProtectedRoute exact path='/personal' component={PersonalProjects} />
+          <ProtectedRoute exact path='/social' component={SocialProjects} />
           <ProtectedRoute path='/:type/:id' component={DetailsProject} />
           <Route path='/signin' component={SigninForm} />
           <Route path='/signup' component={SignupForm} />
