@@ -4,23 +4,23 @@ import { Drawer, Typography, List } from '@mui/material';
 import { ListItem, ListItemText, ListItemIcon } from '@mui/material';
 import { AddCircleOutlined, SubjectOutlined } from '@mui/icons-material';
 
-const SideBar = ({ drawerWidth }) => {
+const SideBar = ({ sideWidth }) => {
   const history = useHistory();
   const location = useLocation();
 
   const loginMenu = [
     {
-      text: 'Personal Notes',
+      text: 'Personal Projects',
       icon: <SubjectOutlined color='secondary' />,
       path: '/personal',
     },
     {
-      text: 'Social Notes',
+      text: 'Social Projects',
       icon: <SubjectOutlined color='secondary' />,
       path: '/social',
     },
     {
-      text: 'Create Note',
+      text: 'Create Projects',
       icon: <AddCircleOutlined color='secondary' />,
       path: '/create',
     },
@@ -41,7 +41,7 @@ const SideBar = ({ drawerWidth }) => {
 
   return (
     <Drawer
-      sx={{ width: drawerWidth, '& .MuiDrawer-paper': { width: drawerWidth } }}
+      sx={{ width: sideWidth, '& .MuiDrawer-paper': { width: sideWidth } }}
       variant='permanent'
       anchor='left'
     >

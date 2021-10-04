@@ -3,7 +3,7 @@ import { styled } from '@mui/system';
 import TopBar from 'organisms/TopBar';
 import SideBar from 'organisms/SideBar';
 
-const drawerWidth = 240;
+const sideWidth = 250;
 
 const StyledContainer = styled('div')(({ theme }) => ({
   width: '100%',
@@ -18,8 +18,8 @@ const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const UserLayout = ({ children }) => (
   <StyledWrapper>
-    <TopBar drawerWidth={drawerWidth} />
-    <SideBar drawerWidth={drawerWidth} />
+    <TopBar sideWidth={sideWidth} />
+    <SideBar sideWidth={sideWidth} />
     <StyledContainer>
       <Offset /> {children}
     </StyledContainer>

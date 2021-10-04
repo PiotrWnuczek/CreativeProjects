@@ -14,7 +14,7 @@ const breakpoints = {
   700: 1,
 };
 
-const ProjectsGrid = ({ projects }) => (
+const ProjectsGrid = ({ projects, type }) => (
   <Masonry
     breakpointCols={breakpoints}
     className='my-masonry-grid'
@@ -22,7 +22,7 @@ const ProjectsGrid = ({ projects }) => (
   >
     {projects && projects.map(project =>
       <StyledLink
-        to={'/personal/' + project.id}
+        to={'/' + type + '/' + project.id}
         key={project.id}
       >
         <ProjectCard project={project} />

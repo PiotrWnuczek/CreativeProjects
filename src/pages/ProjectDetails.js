@@ -2,22 +2,14 @@ import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { Card, CardHeader, CardContent } from '@mui/material';
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
+import DetailsCard from 'moleculs/DetailsCard';
+import DetailsGrid from 'organisms/DetailsGrid';
 
-const DetailsProject = ({ project }) => (
+const ProjectDetails = ({ project }) => (
   project ? <Container>
-    <Card elevation={1}>
-      <CardHeader
-        title={project.title}
-        subheader={project.category}
-      />
-      <CardContent>
-        <Typography variant='body2' color='textSecondary'>
-          {project.description}
-        </Typography>
-      </CardContent>
-    </Card>
+    <DetailsCard details={project} />
+    <DetailsGrid elements={[]} />
   </Container> : <p className='text-center'>loading...</p>
 );
 
@@ -52,4 +44,4 @@ export default compose(
       storeAs: 'social',
     },
   ]),
-)(DetailsProject);
+)(ProjectDetails);

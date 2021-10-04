@@ -13,34 +13,35 @@ const ProjectCard = ({ project, remove }) => {
   if (project.category === 'life') { avatarColor = green[700] }
 
   return (
-    <div>
-      <Card elevation={1}>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ backgroundColor: avatarColor }}>
-              {project.category[0].toUpperCase()}
-            </Avatar>
-          }
-          action={
-            <IconButton
-              onClick={() => {
-                console.log({ type: project.type }, project.id);
-                remove({ type: project.type }, project.id);
-              }}
-            >
-              <DeleteOutlined />
-            </IconButton>
-          }
-          title={project.title}
-          subheader={project.category}
-        />
-        <CardContent>
-          <Typography variant='body2' color='textSecondary'>
-            {project.description}
-          </Typography>
-        </CardContent>
-      </Card>
-    </div>
+    <Card elevation={1}>
+      <CardHeader
+        avatar={
+          <Avatar sx={{ backgroundColor: avatarColor }}>
+            {project.category[0].toUpperCase()}
+          </Avatar>
+        }
+        action={
+          <IconButton
+            onClick={() => {
+              console.log({ type: project.type }, project.id);
+              remove({ type: project.type }, project.id);
+            }}
+          >
+            <DeleteOutlined />
+          </IconButton>
+        }
+        title={project.title}
+        subheader={project.category}
+      />
+      <CardContent>
+        <Typography
+          variant='body2'
+          color='textSecondary'
+        >
+          {project.description}
+        </Typography>
+      </CardContent>
+    </Card>
   )
 };
 

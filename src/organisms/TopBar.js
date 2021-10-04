@@ -2,9 +2,9 @@ import React from 'react';
 import { Typography, AppBar, Toolbar, Avatar } from '@mui/material';
 import { format } from 'date-fns';
 
-const TopBar = ({ drawerWidth }) => (
+const TopBar = ({ sideWidth }) => (
   <AppBar
-    sx={{ width: `calc(100% - ${drawerWidth}px)` }}
+    sx={{ width: `calc(100% - ${sideWidth}px)` }}
     elevation={0}
   >
     <Toolbar>

@@ -7,7 +7,7 @@ import ProjectsGrid from 'organisms/ProjectsGrid';
 
 const PersonalProjects = ({ personal }) => (
   <Container>
-    <ProjectsGrid projects={personal} />
+    <ProjectsGrid projects={personal} type='personal' />
   </Container>
 );
 
