@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { signup } from 'logic/authActions';
 import { Redirect } from 'react-router-dom';
-import { Container, Typography, Button, TextField } from '@mui/material';
+import { Container, Typography, Button } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import { Formik } from 'formik';
+import TextInput from 'atoms/TextInput';
 
 const SignupForm = ({ signup, error, auth }) => (auth.uid ?
   <Redirect to='/' /> :
@@ -34,57 +35,29 @@ const SignupForm = ({ signup, error, auth }) => (auth.uid ?
           onSubmit={handleSubmit}
           autoComplete='off'
         >
-          <TextField
-            sx={{ mt: 2, mb: 2, display: 'block' }}
+          <TextInput
             onChange={handleChange}
             value={values.email}
-            label='Email'
-            type='email'
             name='email'
-            placeholder='email'
-            variant='outlined'
-            color='secondary'
-            fullWidth
-            required
+            type='email'
           />
-          <TextField
-            sx={{ mt: 2, mb: 2, display: 'block' }}
+          <TextInput
             onChange={handleChange}
             value={values.password}
-            label='Password'
-            type='password'
             name='password'
-            placeholder='password'
-            variant='outlined'
-            color='secondary'
-            fullWidth
-            required
+            type='password'
           />
-          <TextField
-            sx={{ mt: 2, mb: 2, display: 'block' }}
+          <TextInput
             onChange={handleChange}
             value={values.firstname}
-            label='First Name'
-            type='text'
             name='firstname'
-            placeholder='firstname'
-            variant='outlined'
-            color='secondary'
-            fullWidth
-            required
+            type='text'
           />
-          <TextField
-            sx={{ mt: 2, mb: 2, display: 'block' }}
+          <TextInput
             onChange={handleChange}
             value={values.lastname}
-            label='Last Name'
-            type='text'
             name='lastname'
-            placeholder='lastname'
-            variant='outlined'
-            color='secondary'
-            fullWidth
-            required
+            type='text'
           />
           <Button
             type='submit'

@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { signin } from 'logic/authActions';
 import { Redirect } from 'react-router-dom';
-import { Container, Typography, Button, TextField } from '@mui/material';
+import { Container, Typography, Button } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import { Formik } from 'formik';
+import TextInput from 'atoms/TextInput';
 
 const SigninForm = ({ signin, error, auth }) => (auth.uid ?
   <Redirect to='/' /> :
@@ -32,31 +33,17 @@ const SigninForm = ({ signin, error, auth }) => (auth.uid ?
           onSubmit={handleSubmit}
           autoComplete='off'
         >
-          <TextField
-            sx={{ mt: 2, mb: 2, display: 'block' }}
+          <TextInput
             onChange={handleChange}
             value={values.email}
-            label='Email'
-            type='email'
             name='email'
-            placeholder='email'
-            variant='outlined'
-            color='secondary'
-            fullWidth
-            required
+            type='email'
           />
-          <TextField
-            sx={{ mt: 2, mb: 2, display: 'block' }}
+          <TextInput
             onChange={handleChange}
             value={values.password}
-            label='Password'
-            type='password'
             name='password'
-            placeholder='password'
-            variant='outlined'
-            color='secondary'
-            fullWidth
-            required
+            type='password'
           />
           <Button
             type='submit'

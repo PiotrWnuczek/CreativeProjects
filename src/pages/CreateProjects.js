@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { create } from 'logic/projectActions';
-import { Container, Typography, Button, Radio, RadioGroup } from '@mui/material';
-import { FormControl, FormLabel, FormControlLabel, TextField } from '@mui/material';
+import { Container, Typography, Button } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import { Formik } from 'formik';
+import TextInput from 'atoms/TextInput';
+import RadioInput from 'atoms/RadioInput';
 
 const CreateProjects = ({ create, history }) => (
   <Container>
@@ -34,72 +35,32 @@ const CreateProjects = ({ create, history }) => (
           onSubmit={handleSubmit}
           autoComplete='off'
         >
-          <TextField
-            sx={{ mt: 2, mb: 2, display: 'block' }}
+          <TextInput
             onChange={handleChange}
             value={values.title}
-            label='Title'
-            type='text'
             name='title'
-            placeholder='title'
-            variant='outlined'
-            color='secondary'
-            fullWidth
-            required
+            type='text'
           />
-          <TextField
-            sx={{ mt: 2, mb: 2, display: 'block' }}
+          <TextInput
             onChange={handleChange}
             value={values.description}
-            label='Description'
-            type='text'
             name='description'
-            placeholder='description'
-            variant='outlined'
-            color='secondary'
+            type='text'
             rows={7}
             multiline
-            fullWidth
-            required
           />
-          <FormControl sx={{ mt: 2, mb: 2, display: 'block' }}>
-            <FormLabel color='secondary'>Category</FormLabel>
-            <RadioGroup
-              onChange={handleChange}
-              value={values.category}
-              name='category'
-            >
-              <FormControlLabel
-                control={<Radio color='secondary' />}
-                value='work'
-                label='work'
-              />
-              <FormControlLabel
-                control={<Radio color='secondary' />}
-                value='life'
-                label='life'
-              />
-            </RadioGroup>
-          </FormControl>
-          <FormControl sx={{ mt: 2, mb: 2, display: 'block' }}>
-            <FormLabel color='secondary'>Type</FormLabel>
-            <RadioGroup
-              onChange={handleChange}
-              value={values.type}
-              name='type'
-            >
-              <FormControlLabel
-                control={<Radio color='secondary' />}
-                value='personal'
-                label='personal'
-              />
-              <FormControlLabel
-                control={<Radio color='secondary' />}
-                value='social'
-                label='social'
-              />
-            </RadioGroup>
-          </FormControl>
+          <RadioInput
+            onChange={handleChange}
+            value={values.category}
+            items={['work', 'life']}
+            name='category'
+          />
+          <RadioInput
+            onChange={handleChange}
+            value={values.type}
+            items={['personal', 'social']}
+            name='type'
+          />
           <Button
             type='submit'
             color='secondary'
