@@ -27,7 +27,7 @@ const CreateProjects = ({ create, history }) => (
       onSubmit={(values, { resetForm }) => {
         create({ ...values });
         resetForm();
-        history.push('/');
+        history.push('/' + values.type);
       }}
     >
       {({ values, handleChange, handleSubmit }) => (

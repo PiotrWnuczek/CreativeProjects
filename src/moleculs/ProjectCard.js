@@ -1,14 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { remove } from 'logic/projectActions';
 import { IconButton, Typography } from '@mui/material';
 import { Card, CardHeader, CardContent, Avatar } from '@mui/material';
 import { red, green, blue } from '@mui/material/colors';
 import { DeleteOutlined } from '@mui/icons-material';
+import { styled } from '@mui/system';
+
+const StyledLink = styled(Link)({
+  textDecoration: 'none',
+});
 
 const ProjectCard = ({ project, remove }) => {
   let avatarColor = blue[700];
-
   if (project.category === 'work') { avatarColor = red[700] }
   if (project.category === 'life') { avatarColor = green[700] }
 
@@ -23,7 +28,6 @@ const ProjectCard = ({ project, remove }) => {
         action={
           <IconButton
             onClick={() => {
-              console.log({ type: project.type }, project.id);
               remove({ type: project.type }, project.id);
             }}
           >
@@ -33,14 +37,16 @@ const ProjectCard = ({ project, remove }) => {
         title={project.title}
         subheader={project.category}
       />
-      <CardContent>
-        <Typography
-          variant='body2'
-          color='textSecondary'
-        >
-          {project.description}
-        </Typography>
-      </CardContent>
+      <StyledLink to={'/' + project.type + '/' + project.id}>
+        <CardContent>
+          <Typography
+            variant='body2'
+            color='textSecondary'
+          >
+            {project.description}
+          </Typography>
+        </CardContent>
+      </StyledLink>
     </Card>
   )
 };
