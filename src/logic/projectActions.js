@@ -1,4 +1,4 @@
-export const create = (data) => (dispatch, getState, { getFirestore }) => {
+export const createProject = (data) => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore();
   const authorid = getState().firebase.auth.uid;
   const profile = getState().firebase.profile;
@@ -12,13 +12,13 @@ export const create = (data) => (dispatch, getState, { getFirestore }) => {
     authorid: authorid,
     createdat: new Date(),
   }).then(() => {
-    dispatch({ type: 'CREATE_SUCCESS', data });
+    dispatch({ type: 'CREATEPROJECT_SUCCESS', data });
   }).catch((err) => {
-    dispatch({ type: 'CREATE_ERROR', err });
+    dispatch({ type: 'CREATEPROJECT_ERROR', err });
   })
 };
 
-export const update = (data, id) => (dispatch, getState, { getFirestore }) => {
+export const updateProject = (data, id) => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore();
   const authorid = getState().firebase.auth.uid;
   const personal = firestore.collection('users').doc(authorid).collection('projects');
@@ -27,21 +27,21 @@ export const update = (data, id) => (dispatch, getState, { getFirestore }) => {
   ref.doc(id).update({
     ...data,
   }).then(() => {
-    dispatch({ type: 'UPDATE_SUCCESS', data });
+    dispatch({ type: 'UPDATEPROJECT_SUCCESS', data });
   }).catch((err) => {
-    dispatch({ type: 'UPDATE_ERROR', err });
+    dispatch({ type: 'UPDATEPROJECT_ERROR', err });
   })
 };
 
-export const remove = (data, id) => (dispatch, getState, { getFirestore }) => {
+export const removeProject = (data, id) => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore();
   const authorid = getState().firebase.auth.uid;
   const personal = firestore.collection('users').doc(authorid).collection('projects');
   const social = firestore.collection('projects');
   const ref = data.type === 'personal' ? personal : social;
   ref.doc(id).delete().then(() => {
-    dispatch({ type: 'REMOVE_SUCCESS', id });
+    dispatch({ type: 'REMOVEPROJECT_SUCCESS', id });
   }).catch((err) => {
-    dispatch({ type: 'REMOVE_SUCCESS', err });
+    dispatch({ type: 'REMOVEPROJECT_SUCCESS', err });
   })
 };

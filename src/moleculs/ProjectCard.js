@@ -1,13 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { remove } from 'logic/projectActions';
+import { removeProject } from 'logic/projectActions';
 import { IconButton, Typography } from '@mui/material';
 import { Card, CardHeader, CardContent, Avatar } from '@mui/material';
 import { red, green, blue } from '@mui/material/colors';
 import { DeleteOutline, FolderOpen } from '@mui/icons-material';
 
-const ProjectCard = ({ project, remove }) => {
+const ProjectCard = ({ project, removeProject }) => {
   const history = useHistory();
 
   let avatarColor = blue[700];
@@ -26,7 +26,7 @@ const ProjectCard = ({ project, remove }) => {
           <div>
             <IconButton
               onClick={() => {
-                remove({ type: project.type }, project.id);
+                removeProject({ type: project.type }, project.id);
               }}
             >
               <DeleteOutline />
@@ -56,7 +56,7 @@ const ProjectCard = ({ project, remove }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  remove: (data, id) => dispatch(remove(data, id)),
+  removeProject: (data, id) => dispatch(removeProject(data, id)),
 });
 
 export default connect(null, mapDispatchToProps)

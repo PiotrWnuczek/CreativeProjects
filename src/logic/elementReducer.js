@@ -1,27 +1,27 @@
-const initial = { projects: [] };
+const initial = { elements: [] };
 
-const projectReducer = (state = initial, action) => {
+const elementReducer = (state = initial, action) => {
   switch (action.type) {
-    case 'CREATEPROJECT_SUCCESS':
+    case 'CREATEELEMENT_SUCCESS':
       console.log(action.data);
       return state;
-    case 'CREATEPROJECT_ERROR':
+    case 'CREATEELEMENT_ERROR':
       console.log(action.err);
       return state;
-    case 'UPDATEPROJECT_SUCCESS':
+    case 'UPDATEELEMENT_SUCCESS':
       console.log(action.data);
       return state;
-    case 'UPDATEPROJECT_ERROR':
+    case 'UPDATEELEMENT_ERROR':
       console.log(action.err);
       return state;
-    case 'REMOVEPROJECT_SUCCESS':
+    case 'REMOVEELEMENT_SUCCESS':
       console.log(action.id);
       return state;
-    case 'REMOVEPROJECT_ERROR':
+    case 'REMOVEELEMENT_ERROR':
       console.log(action.err);
       return state;
     default: return state;
   }
 };
 
-export default projectReducer;
+export default elementReducer;

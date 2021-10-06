@@ -1,9 +1,9 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { create } from 'logic/projectActions';
+import { createElement } from 'logic/elementActions';
 import { firestoreConnect } from 'react-redux-firebase';
-import { Grid, Button } from '@mui/material';
+import { Grid, Button, Box } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import { Formik } from 'formik';
 import DetailsCard from 'moleculs/DetailsCard';
@@ -11,8 +11,8 @@ import DetailsGrid from 'organisms/DetailsGrid';
 import TextInput from 'atoms/TextInput';
 import SelectInput from 'atoms/SelectInput';
 
-const ProjectDetails = ({ project }) => (
-  project ? <Grid container spacing={3}>
+const ProjectDetails = ({ project, id, elements, createElement }) => (project ?
+  <Grid container spacing={3}>
     <Grid item md={3}>
       <DetailsCard details={project} />
     </Grid>
@@ -23,7 +23,7 @@ const ProjectDetails = ({ project }) => (
           type: 'note',
         }}
         onSubmit={(values, { resetForm }) => {
-          create({ ...values });
+          createElement({ ...values, type: project.type }, id);
           resetForm();
         }}
       >
@@ -57,40 +57,73 @@ const ProjectDetails = ({ project }) => (
           </form>
         )}
       </Formik>
-      <DetailsGrid elements={[]} />
+      <Box sx={{ mt: 4 }}>
+        <DetailsGrid elements={elements} />
+      </Box>
     </Grid>
-  </Grid> : <p className='text-center'>loading...</p>
+  </Grid> :
+  <p className='text-center'>loading...</p>
 );
 
 const mapStateToProps = (state, ownProps) => {
   const type = ownProps.match.params.type;
   const id = ownProps.match.params.id;
-  const personal = state.firestore.data.personal;
-  const social = state.firestore.data.social;
+  const personalProjects = state.firestore.data.personalProjects;
+  const socialProjects = state.firestore.data.socialProjects;
+  const personalElements = state.firestore.ordered.personalElements;
+  const socialElements = state.firestore.ordered.socialElements;
   if (type === 'personal') {
     return {
-      auth: state.firebase.auth,
-      project: personal && personal[id],
+      auth: state.firebase.auth, id,
+      project: personalProjects && personalProjects[id],
+      elements: personalElements,
     }
   } else {
     return {
-      auth: state.firebase.auth,
-      project: social && social[id],
+      auth: state.firebase.auth, id,
+      project: socialProjects && socialProjects[id],
+      elements: socialElements,
     }
   }
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  createElement: (data, projectid) => dispatch(createElement(data, projectid)),
+});
+
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect(props => [
     {
-      collection: 'users', doc: props.auth.uid,
-      subcollections: [{ collection: 'projects' }],
-      storeAs: 'personal',
+      collection: 'users',
+      doc: props.auth.uid,
+      subcollections: [{
+        collection: 'projects',
+      }],
+      storeAs: 'personalProjects',
     },
     {
       collection: 'projects',
-      storeAs: 'social',
+      storeAs: 'socialProjects',
+    },
+    {
+      collection: 'users',
+      doc: props.auth.uid,
+      subcollections: [{
+        collection: 'projects',
+        doc: props.id,
+      }, {
+        collection: 'elements',
+      }],
+      storeAs: 'personalElements',
+    },
+    {
+      collection: 'projects',
+      doc: props.id,
+      subcollections: [{
+        collection: 'elements',
+      }],
+      storeAs: 'socialElements',
     },
   ]),
 )(ProjectDetails);

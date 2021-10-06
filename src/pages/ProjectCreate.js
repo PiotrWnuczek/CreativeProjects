@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { create } from 'logic/projectActions';
+import { createProject } from 'logic/projectActions';
 import { Container, Typography, Button } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
 import RadioInput from 'atoms/RadioInput';
 
-const ProjectCreate = ({ create, history }) => (
+const ProjectCreate = ({ createProject, history }) => (
   <Container>
     <Typography
       variant='h6'
@@ -25,7 +25,7 @@ const ProjectCreate = ({ create, history }) => (
         type: 'personal',
       }}
       onSubmit={(values, { resetForm }) => {
-        create({ ...values });
+        createProject({ ...values });
         resetForm();
         history.push('/' + values.type);
       }}
@@ -76,7 +76,7 @@ const ProjectCreate = ({ create, history }) => (
 );
 
 const mapDispatchToProps = (dispatch) => ({
-  create: (data) => dispatch(create(data)),
+  createProject: (data) => dispatch(createProject(data)),
 });
 
 export default connect(null, mapDispatchToProps)

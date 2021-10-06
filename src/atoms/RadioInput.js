@@ -11,8 +11,9 @@ const RadioInput = ({ name, items, ...props }) => (
       {items.map(item =>
         <FormControlLabel
           control={<Radio color='secondary' />}
-          value={item}
           label={item}
+          value={item}
+          key={item}
         />
       )}
     </RadioGroup>
