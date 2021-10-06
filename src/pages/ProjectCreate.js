@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
 import RadioInput from 'atoms/RadioInput';
 
-const CreateProjects = ({ create, history }) => (
+const ProjectCreate = ({ create, history }) => (
   <Container>
     <Typography
       variant='h6'
@@ -80,4 +80,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(null, mapDispatchToProps)
-  (CreateProjects);
+  (ProjectCreate);

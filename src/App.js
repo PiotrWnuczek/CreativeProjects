@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material';
 import { blue } from '@mui/material/colors';
 import UserLayout from 'templates/UserLayout';
 import ProtectedRoute from 'auth/ProtectedRoute';
-import CreateProjects from 'pages/CreateProjects';
+import ProjectCreate from 'pages/ProjectCreate';
 import PersonalProjects from 'pages/PersonalProjects';
 import SocialProjects from 'pages/SocialProjects';
 import ProjectDetails from 'pages/ProjectDetails';
@@ -31,7 +31,7 @@ const App = () => (
     <BrowserRouter>
       <UserLayout>
         <Switch>
-          <ProtectedRoute path='/create' component={CreateProjects} />
+          <ProtectedRoute path='/create' component={ProjectCreate} />
           <ProtectedRoute exact path='/personal' component={PersonalProjects} />
           <ProtectedRoute exact path='/social' component={SocialProjects} />
           <ProtectedRoute path='/:type/:id' component={ProjectDetails} />

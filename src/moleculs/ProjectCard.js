@@ -1,18 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { remove } from 'logic/projectActions';
 import { IconButton, Typography } from '@mui/material';
 import { Card, CardHeader, CardContent, Avatar } from '@mui/material';
 import { red, green, blue } from '@mui/material/colors';
-import { DeleteOutlined } from '@mui/icons-material';
-import { styled } from '@mui/system';
-
-const StyledLink = styled(Link)({
-  textDecoration: 'none',
-});
+import { DeleteOutline, FolderOpen } from '@mui/icons-material';
 
 const ProjectCard = ({ project, remove }) => {
+  const history = useHistory();
+
   let avatarColor = blue[700];
   if (project.category === 'work') { avatarColor = red[700] }
   if (project.category === 'life') { avatarColor = green[700] }
@@ -26,27 +23,34 @@ const ProjectCard = ({ project, remove }) => {
           </Avatar>
         }
         action={
-          <IconButton
-            onClick={() => {
-              remove({ type: project.type }, project.id);
-            }}
-          >
-            <DeleteOutlined />
-          </IconButton>
+          <div>
+            <IconButton
+              onClick={() => {
+                remove({ type: project.type }, project.id);
+              }}
+            >
+              <DeleteOutline />
+            </IconButton>
+            <IconButton
+              onClick={() =>
+                history.push('/' + project.type + '/' + project.id)
+              }
+            >
+              <FolderOpen />
+            </IconButton>
+          </div>
         }
         title={project.title}
         subheader={project.category}
       />
-      <StyledLink to={'/' + project.type + '/' + project.id}>
-        <CardContent>
-          <Typography
-            variant='body2'
-            color='textSecondary'
-          >
-            {project.description}
-          </Typography>
-        </CardContent>
-      </StyledLink>
+      <CardContent>
+        <Typography
+          variant='body2'
+          color='textSecondary'
+        >
+          {project.description}
+        </Typography>
+      </CardContent>
     </Card>
   )
 };
