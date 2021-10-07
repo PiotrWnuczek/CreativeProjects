@@ -10,7 +10,7 @@ import ElementCreate from 'moleculs/ElementCreate';
 const ProjectDetails = ({ project, id, elements }) => (project ?
   <Grid container spacing={3}>
     <Grid item md={3}>
-      <DetailsCard details={project} />
+      <DetailsCard details={project} id={id} />
     </Grid>
     <Grid item md={9}>
       <ElementCreate type={project.type} projectid={id} />
