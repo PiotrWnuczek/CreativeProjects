@@ -1,16 +1,12 @@
 export const createElement = (data, projectid) => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore();
   const authorid = getState().firebase.auth.uid;
-  const profile = getState().firebase.profile;
   const personal = firestore.collection('users').doc(authorid).collection('projects')
     .doc(projectid).collection('elements');
-  const social = firestore.collection('projects')
-    .doc(projectid).collection('elements');
+  const social = firestore.collection('projects').doc(projectid).collection('elements');
   const ref = data.type === 'personal' ? personal : social;
   ref.add({
     ...data,
-    firstname: profile.firstname,
-    lastname: profile.lastname,
     authorid: authorid,
     createdat: new Date(),
   }).then(() => {
@@ -25,8 +21,7 @@ export const updateElement = (data, projectid, id) => (dispatch, getState, { get
   const authorid = getState().firebase.auth.uid;
   const personal = firestore.collection('users').doc(authorid).collection('projects')
     .doc(projectid).collection('elements');
-  const social = firestore.collection('projects')
-    .doc(projectid).collection('elements');
+  const social = firestore.collection('projects').doc(projectid).collection('elements');
   const ref = data.type === 'personal' ? personal : social;
   ref.doc(id).update({
     ...data,
@@ -42,8 +37,7 @@ export const removeElement = (data, projectid, id) => (dispatch, getState, { get
   const authorid = getState().firebase.auth.uid;
   const personal = firestore.collection('users').doc(authorid).collection('projects')
     .doc(projectid).collection('elements');
-  const social = firestore.collection('projects')
-    .doc(projectid).collection('elements');
+  const social = firestore.collection('projects').doc(projectid).collection('elements');
   const ref = data.type === 'personal' ? personal : social;
   ref.doc(id).delete().then(() => {
     dispatch({ type: 'REMOVEELEMENT_SUCCESS', id });

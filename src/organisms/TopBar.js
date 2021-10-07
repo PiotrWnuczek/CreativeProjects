@@ -12,7 +12,7 @@ const TopBar = ({ sideWidth, profile }) => (
       <Typography sx={{ flexGrow: 1 }}>
         Today is the {format(new Date(), 'do MMMM Y')}
       </Typography>
-      <Typography>{profile.initials}</Typography>
+      <Typography>{profile.email}</Typography>
       <Avatar sx={{ ml: 2 }} src='/logo512.png' />
     </Toolbar>
   </AppBar>

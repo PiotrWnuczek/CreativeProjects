@@ -50,7 +50,11 @@ const SideBar = ({ sideWidth, auth, signout }) => {
       variant='permanent'
       anchor='left'
     >
-      <Typography sx={{ p: 2 }} variant='h5'>
+      <Typography
+        sx={{ p: 2, cursor: 'pointer' }}
+        variant='h5'
+        onClick={() => history.push('/personal')}
+      >
         Material App
       </Typography>
       <List>
