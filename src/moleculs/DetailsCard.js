@@ -49,6 +49,7 @@ const DetailsCard = ({ details, id }) => {
         <Typography
           variant='body2'
           color='textSecondary'
+          component='div'
         >
           {edit === 'description' ?
             <DetailsEdit

@@ -6,7 +6,7 @@ import ButtonInput from 'atoms/ButtonInput';
 
 const DetailsEdit = ({ name, value, type, id, setEdit, updateProject }) => (
   <Formik
-    initialValues={{ value }}
+    initialValues={{ ...value }}
     onSubmit={(values, { resetForm }) => {
       updateProject({ ...values, type }, id);
       setEdit(false);
@@ -20,7 +20,7 @@ const DetailsEdit = ({ name, value, type, id, setEdit, updateProject }) => (
       >
         <ButtonInput
           onChange={handleChange}
-          value={values}
+          value={Object.values(values)[0]}
           name={name}
           type='text'
         />
