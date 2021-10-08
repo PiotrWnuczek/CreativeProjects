@@ -13,8 +13,9 @@ const DetailsCard = ({ details, id }) => {
         title={
           <>{edit === 'title' ?
             <DetailsEdit
+              name='title'
               setEdit={setEdit}
-              value={details.title}
+              value={{ title: details.title }}
               type={details.type}
               id={id}
             /> :
@@ -29,8 +30,9 @@ const DetailsCard = ({ details, id }) => {
         subheader={
           <>{edit === 'category' ?
             <DetailsEdit
+              name='category'
               setEdit={setEdit}
-              value={details.category}
+              value={{ category: details.category }}
               type={details.type}
               id={id}
             /> :
@@ -48,10 +50,21 @@ const DetailsCard = ({ details, id }) => {
           variant='body2'
           color='textSecondary'
         >
-          {details.description}
-          <IconButton onClick={() => console.log('update')}>
-            <Edit />
-          </IconButton>
+          {edit === 'description' ?
+            <DetailsEdit
+              name='description'
+              setEdit={setEdit}
+              value={{ description: details.description }}
+              type={details.type}
+              id={id}
+            /> :
+            <div>
+              {details.description}
+              <IconButton onClick={() => setEdit('description')}>
+                <Edit />
+              </IconButton>
+            </div>
+          }
         </Typography>
       </CardContent>
     </Card>

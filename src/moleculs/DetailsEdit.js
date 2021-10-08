@@ -2,15 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateProject } from 'logic/projectActions';
 import { Formik } from 'formik';
-import { Button } from '@mui/material';
-import { KeyboardArrowRight } from '@mui/icons-material';
-import TextInput from 'atoms/TextInput';
+import ButtonInput from 'atoms/ButtonInput';
 
-const DetailsEdit = ({ value, type, id, setEdit, updateProject }) => (
+const DetailsEdit = ({ name, value, type, id, setEdit, updateProject }) => (
   <Formik
-    initialValues={{
-      title: value,
-    }}
+    initialValues={{ value }}
     onSubmit={(values, { resetForm }) => {
       updateProject({ ...values, type }, id);
       setEdit(false);
@@ -22,20 +18,12 @@ const DetailsEdit = ({ value, type, id, setEdit, updateProject }) => (
         onSubmit={handleSubmit}
         autoComplete='off'
       >
-        <TextInput
+        <ButtonInput
           onChange={handleChange}
-          value={values.title}
-          name='title'
+          value={values}
+          name={name}
           type='text'
         />
-        <Button
-          type='submit'
-          color='secondary'
-          variant='contained'
-          endIcon={<KeyboardArrowRight />}
-        >
-          Save
-        </Button>
       </form>
     )}
   </Formik>
