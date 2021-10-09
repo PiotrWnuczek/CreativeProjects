@@ -9,7 +9,9 @@ import DetailsGrid from 'organisms/DetailsGrid';
 import ElementCreate from 'moleculs/ElementCreate';
 
 const ProjectDetails = ({ project, id, profile, elements }) => (project ?
-  !project.team.includes(profile.email) ? <Redirect to={'/' + project.type} /> :
+  !project.team.some(i =>
+    i.email === profile.email && (i.role === 'member' || i.role === 'admin')
+  ) ? <Redirect to={'/' + project.type} /> :
     <Grid container spacing={3}>
       <Grid item md={3}>
         <DetailsCard details={project} id={id} />

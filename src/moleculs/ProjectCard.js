@@ -32,9 +32,9 @@ const ProjectCard = ({ project, profile, updateProject }) => {
             </IconButton>
             <IconButton
               onClick={() => {
-                !project.team.includes(profile.email) && updateProject({
+                !project.team.some(i => i.email === profile.email) && updateProject({
                   type: project.type,
-                  team: [...project.team, profile.email],
+                  team: [...project.team, { email: profile.email, role: 'wait' }],
                 }, project.id);
               }}
             >
