@@ -42,8 +42,11 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
             /> :
             <div>
               {details.category}
-              <IconButton onClick={() => setEdit('category')}>
-                <Edit />
+              <IconButton
+                size='small'
+                onClick={() => setEdit('category')}
+              >
+                <Edit fontSize='small' />
               </IconButton>
             </div>
           }</>
@@ -65,14 +68,17 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
             /> :
             <div>
               {details.description}
-              <IconButton onClick={() => setEdit('description')}>
-                <Edit />
+              <IconButton
+                size='small'
+                onClick={() => setEdit('description')}
+              >
+                <Edit fontSize='small' />
               </IconButton>
             </div>
           }
           <Typography
             variant='subtitle1'
-            sx={{ mt: 2 }}
+            sx={{ mt: 4 }}
           >
             Team:
           </Typography>
@@ -82,7 +88,9 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
               sx={{ fontSize: 12 }}
             >
               {item.email} <br /> ({item.role})
-              <IconButton
+              {details.team.some(i =>
+                i.email === profile.email && i.role === 'admin'
+              ) && <IconButton
                 size='small'
                 onClick={() => {
                   let newRole = 'wait';
@@ -96,8 +104,8 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
                   }, id);
                 }}
               >
-                <KeyboardArrowRight sx={{ fontSize: 16 }} />
-              </IconButton>
+                  <KeyboardArrowRight sx={{ fontSize: 16 }} />
+                </IconButton>}
             </Typography>
           )}
         </Typography>
@@ -115,14 +123,16 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
         >
           <ExitToApp />
         </IconButton>
-        <IconButton
+        {details.team.some(i =>
+          i.email === profile.email && i.role === 'admin'
+        ) && <IconButton
           onClick={() => {
             removeProject({ type: details.type }, id);
             history.push('/' + details.type);
           }}
         >
-          <DeleteOutline />
-        </IconButton>
+            <DeleteOutline />
+          </IconButton>}
       </CardActions>
     </Card>
   )

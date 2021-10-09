@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -8,22 +7,20 @@ import DetailsCard from 'moleculs/DetailsCard';
 import DetailsGrid from 'organisms/DetailsGrid';
 import ElementCreate from 'moleculs/ElementCreate';
 
-const ProjectDetails = ({ project, id, profile, elements }) => (project ?
-  !project.team.some(i =>
+const ProjectDetails = ({ project, id, profile, elements }) => (
+  project && project.team.some(i =>
     i.email === profile.email && (i.role === 'member' || i.role === 'admin')
-  ) ? <Redirect to={'/' + project.type} /> :
-    <Grid container spacing={3}>
-      <Grid item md={3}>
-        <DetailsCard details={project} id={id} />
-      </Grid>
-      <Grid item md={9}>
-        <ElementCreate type={project.type} projectid={id} />
-        <Box sx={{ mt: 4 }}>
-          <DetailsGrid elements={elements} projectid={id} />
-        </Box>
-      </Grid>
-    </Grid> :
-  <p className='text-center'>loading...</p>
+  ) ? <Grid container spacing={3}>
+    <Grid item md={3}>
+      <DetailsCard details={project} id={id} />
+    </Grid>
+    <Grid item md={9}>
+      <ElementCreate type={project.type} projectid={id} />
+      <Box sx={{ mt: 4 }}>
+        <DetailsGrid elements={elements} projectid={id} />
+      </Box>
+    </Grid>
+  </Grid> : <p className='text-center'>loading...</p>
 );
 
 const mapStateToProps = (state, ownProps) => {

@@ -2,13 +2,13 @@ import React from 'react'
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { Container } from '@mui/material';
+import { Box } from '@mui/material';
 import ProjectsGrid from 'organisms/ProjectsGrid';
 
 const PersonalProjects = ({ personal }) => (
-  <Container>
+  <Box>
     <ProjectsGrid projects={personal} type='personal' />
-  </Container>
+  </Box>
 );
 
 const mapStateToProps = (state) => ({

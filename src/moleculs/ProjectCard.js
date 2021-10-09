@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { updateProject } from 'logic/projectActions';
 import { IconButton, Typography } from '@mui/material';
 import { Card, CardHeader, CardContent, Avatar } from '@mui/material';
+import { FolderOpen, PeopleOutline, People } from '@mui/icons-material';
 import { red, green, blue } from '@mui/material/colors';
-import { FolderOpen, PeopleOutline } from '@mui/icons-material';
 
 const ProjectCard = ({ project, profile, updateProject }) => {
   const history = useHistory();
@@ -23,23 +23,29 @@ const ProjectCard = ({ project, profile, updateProject }) => {
         }
         action={
           <div>
-            <IconButton
+            {project.team.some(i =>
+              i.email === profile.email && (i.role === 'member' || i.role === 'admin')
+            ) ? <IconButton
               onClick={() => {
                 history.push('/' + project.type + '/' + project.id);
               }}
             >
               <FolderOpen />
-            </IconButton>
-            <IconButton
-              onClick={() => {
-                !project.team.some(i => i.email === profile.email) && updateProject({
-                  type: project.type,
-                  team: [...project.team, { email: profile.email, role: 'wait' }],
-                }, project.id);
-              }}
-            >
-              <PeopleOutline />
-            </IconButton>
+            </IconButton> :
+              project.team.some(i => i.email === profile.email) ?
+                <IconButton>
+                  <People />
+                </IconButton> :
+                <IconButton
+                  onClick={() => {
+                    updateProject({
+                      type: project.type,
+                      team: [...project.team, { email: profile.email, role: 'wait' }],
+                    }, project.id);
+                  }}
+                >
+                  <PeopleOutline />
+                </IconButton>}
           </div>
         }
         title={project.title}
