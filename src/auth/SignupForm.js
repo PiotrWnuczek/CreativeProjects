@@ -11,7 +11,7 @@ const SignupForm = ({ signup, error, auth }) => {
   const [mistake, setMistake] = useState(false);
 
   return (auth.uid ?
-    <Redirect to='/' /> :
+    <Redirect to='/personal' /> :
     <Container>
       <Typography
         variant='h6'

@@ -1,11 +1,13 @@
 export const createProject = (data) => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore();
   const authorid = getState().firebase.auth.uid;
+  const profile = getState().firebase.profile;
   const personal = firestore.collection('users').doc(authorid).collection('projects');
   const social = firestore.collection('projects');
   const ref = data.type === 'personal' ? personal : social;
   ref.add({
     ...data,
+    team: [profile.email],
     authorid: authorid,
     createdat: new Date(),
   }).then(() => {

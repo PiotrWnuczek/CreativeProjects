@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { removeProject, updateProject } from 'logic/projectActions';
 import { Typography, Card, IconButton } from '@mui/material';
-import { CardHeader, CardContent } from '@mui/material';
-import { Edit } from '@mui/icons-material';
+import { CardHeader, CardContent, CardActions } from '@mui/material';
+import { Edit, DeleteOutline, ExitToApp } from '@mui/icons-material';
 import DetailsEdit from 'moleculs/DetailsEdit';
 
-const DetailsCard = ({ details, id }) => {
+const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => {
+  const history = useHistory();
   const [edit, setEdit] = useState(false);
 
   return (
@@ -68,8 +72,38 @@ const DetailsCard = ({ details, id }) => {
           }
         </Typography>
       </CardContent>
+      <CardActions disableSpacing>
+        <IconButton
+          onClick={() => {
+            updateProject({
+              type: details.type,
+              team: details.team.filter(i => i !== profile.email),
+            }, id);
+          }}
+        >
+          <ExitToApp />
+        </IconButton>
+        <IconButton
+          onClick={() => {
+            removeProject({ type: details.type }, id);
+            history.push('/' + details.type);
+          }}
+        >
+          <DeleteOutline />
+        </IconButton>
+      </CardActions>
     </Card>
   )
 };
 
-export default DetailsCard;
+const mapStateToProps = (state) => ({
+  profile: state.firebase.profile,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  removeProject: (data, id) => dispatch(removeProject(data, id)),
+  updateProject: (data, id) => dispatch(updateProject(data, id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)
+  (DetailsCard);

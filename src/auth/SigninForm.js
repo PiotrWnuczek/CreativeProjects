@@ -8,7 +8,7 @@ import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
 
 const SigninForm = ({ signin, error, auth }) => (auth.uid ?
-  <Redirect to='/' /> :
+  <Redirect to='/personal' /> :
   <Container>
     <Typography
       variant='h6'
