@@ -2,6 +2,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/analytics';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+import 'firebase/compat/storage';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyA9Vg1-0Mhba-ZBqA72xnHgeRqdu4_nZfE',
@@ -12,7 +13,6 @@ firebase.initializeApp({
   appId: '1:889856686719:web:74d1e7fd830ef6b1aa1d4a',
   measurementId: 'G-SJHREV6Z63',
 });
-
 firebase.analytics();
 firebase.firestore().settings({ timestampsInSnapshots: true });
 
