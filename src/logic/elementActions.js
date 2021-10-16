@@ -15,7 +15,9 @@ export const createElement = (data, file, projectid) => (dispatch, getState, { g
   }).catch((err) => {
     dispatch({ type: 'CREATEELEMENT_ERROR', err });
   })
-  data.item === 'file' && firebase.uploadFile(projectid, file).then(() => {
+  data.item === 'file' && firebase.uploadFile(projectid, file, projectid, {
+    metadataFactory: (ur, fb, md, downloadURL) => console.log(downloadURL)
+  }).then(() => {
     dispatch({ type: 'CREATEFILE_SUCCESS', data });
   }).catch((err) => {
     dispatch({ type: 'CREATEFILE_ERROR', err });
