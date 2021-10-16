@@ -15,9 +15,15 @@ const ProjectDetails = ({ project, id, profile, elements }) => (
       <DetailsCard details={project} id={id} />
     </Grid>
     <Grid item md={9}>
-      <ElementCreate type={project.type} projectid={id} />
+      <ElementCreate
+        type={project.type}
+        projectid={id}
+      />
       <Box sx={{ mt: 4 }}>
-        <DetailsGrid elements={elements} projectid={id} />
+        <DetailsGrid
+          elements={elements}
+          projectid={id}
+        />
       </Box>
     </Grid>
   </Grid> : <p className='text-center'>loading...</p>
@@ -72,6 +78,7 @@ export default compose(
       }, {
         collection: 'elements',
       }],
+      orderBy: ['createdat', 'desc'],
       storeAs: 'personalElements',
     },
     {
@@ -80,6 +87,7 @@ export default compose(
       subcollections: [{
         collection: 'elements',
       }],
+      orderBy: ['createdat', 'desc'],
       storeAs: 'socialElements',
     },
   ]),

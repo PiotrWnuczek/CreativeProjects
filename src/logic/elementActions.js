@@ -6,7 +6,7 @@ export const createElement = (data, file, projectid) => (dispatch, getState, { g
     .doc(projectid).collection('elements');
   const social = firestore.collection('projects').doc(projectid).collection('elements');
   const ref = data.type === 'personal' ? personal : social;
-  data.item !== 'file' ? ref.add({
+  ref.add({
     ...data,
     authorid: authorid,
     createdat: new Date(),
@@ -14,12 +14,12 @@ export const createElement = (data, file, projectid) => (dispatch, getState, { g
     dispatch({ type: 'CREATEELEMENT_SUCCESS', data });
   }).catch((err) => {
     dispatch({ type: 'CREATEELEMENT_ERROR', err });
-  }) :
-    firebase.uploadFile(projectid, file).then(() => {
-      dispatch({ type: 'CREATEFILE_SUCCESS', data });
-    }).catch((err) => {
-      dispatch({ type: 'CREATEFILE_ERROR', err });
-    })
+  })
+  data.item === 'file' && firebase.uploadFile(projectid, file).then(() => {
+    dispatch({ type: 'CREATEFILE_SUCCESS', data });
+  }).catch((err) => {
+    dispatch({ type: 'CREATEFILE_ERROR', err });
+  })
 };
 
 export const updateElement = (data, projectid, id) => (dispatch, getState, { getFirestore }) => {
