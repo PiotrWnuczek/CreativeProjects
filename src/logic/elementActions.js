@@ -12,9 +12,10 @@ export const createElement = (data, file, projectid) =>
     data.item === 'file' && fileRef.put(file).then(() => (
       fileRef.getDownloadURL().then((url) => (
         ref.add({
-          ...data, url,
+          ...data,
           authorid: authorid,
           createdat: new Date(),
+          url,
         })
       ))
     )).then(() => {
@@ -31,13 +32,6 @@ export const createElement = (data, file, projectid) =>
     }).catch((err) => {
       dispatch({ type: 'CREATEELEMENT_ERROR', err });
     })
-    /*data.item === 'file' && firebase.uploadFile(projectid, file, projectid, {
-      metadataFactory: (ur, fb, md, downloadURL) => console.log(downloadURL)
-    }).then(() => {
-      dispatch({ type: 'CREATEFILE_SUCCESS', data });
-    }).catch((err) => {
-      dispatch({ type: 'CREATEFILE_ERROR', err });
-    })*/
   };
 
 export const updateElement = (data, projectid, id) => (dispatch, getState, { getFirestore }) => {

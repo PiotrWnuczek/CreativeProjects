@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { removeElement } from 'logic/elementActions';
 import { Typography, Card, IconButton } from '@mui/material';
@@ -28,6 +29,14 @@ const ElementCard = ({ element, projectid, removeElement }) => (
         color='textSecondary'
       >
         {element.content}
+        <br />
+        {element.url && <Link
+          to={{ pathname: element.url }}
+          target='_blank'
+          download
+        >
+          Download
+        </Link>}
       </Typography>
     </CardContent>
   </Card>
