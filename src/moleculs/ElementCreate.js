@@ -40,7 +40,7 @@ const ElementCreate = ({ createElement, type, projectid }) => {
             rows={3}
             multiline
           />
-          <Button
+          {values.item === 'file' && <Button
             color='secondary'
             variant='contained'
             component='label'
@@ -51,7 +51,7 @@ const ElementCreate = ({ createElement, type, projectid }) => {
               type='file'
               onChange={e => setFile(e.target.files[0])}
             />
-          </Button>
+          </Button>}
           <Button
             type='submit'
             color='secondary'
