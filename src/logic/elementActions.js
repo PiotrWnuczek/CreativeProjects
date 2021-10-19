@@ -1,38 +1,38 @@
-export const createElement = (data, file, projectid) =>
-  (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
-    const firestore = getFirestore();
-    const authorid = getState().firebase.auth.uid;
-    const personal = firestore.collection('users').doc(authorid).collection('projects')
-      .doc(projectid).collection('elements');
-    const social = firestore.collection('projects').doc(projectid).collection('elements');
-    const ref = data.type === 'personal' ? personal : social;
-    const storageRef = firebase.storage().ref(projectid);
-    const fileRef = storageRef.child(file.name);
-    data.item === 'file' && fileRef.put(file).then(() => (
-      fileRef.getDownloadURL().then((url) => (
-        ref.add({
-          ...data,
-          authorid: authorid,
-          createdat: new Date(),
-          url,
-        })
-      ))
-    )).then(() => {
-      dispatch({ type: 'CREATEELEMENT_SUCCESS', data });
-    }).catch((err) => {
-      dispatch({ type: 'CREATEELEMENT_ERROR', err });
-    })
-    data.item !== 'file' && ref.add({
-      ...data,
-      authorid: authorid,
-      createdat: new Date(),
-    }).then(() => {
-      dispatch({ type: 'CREATEELEMENT_SUCCESS', data });
-    }).catch((err) => {
-      dispatch({ type: 'CREATEELEMENT_ERROR', err });
-    })
-  };
+export const createElement = (data, file, projectid) => (
+  dispatch, getState, { getFirebase, getFirestore }
+) => {
+  const firebase = getFirebase();
+  const firestore = getFirestore();
+  const authorid = getState().firebase.auth.uid;
+  const personal = firestore.collection('users').doc(authorid).collection('projects')
+    .doc(projectid).collection('elements');
+  const social = firestore.collection('projects').doc(projectid).collection('elements');
+  const ref = data.type === 'personal' ? personal : social;
+  const storageRef = firebase.storage().ref(projectid);
+  const fileRef = storageRef.child(file.name);
+  (data.item === 'file' || data.item === 'image') ? fileRef.put(file).then(() => (
+    fileRef.getDownloadURL().then((url) => (
+      ref.add({
+        ...data,
+        authorid: authorid,
+        createdat: new Date(),
+        url,
+      })
+    ))
+  )).then(() => {
+    dispatch({ type: 'CREATEELEMENT_SUCCESS', data });
+  }).catch((err) => {
+    dispatch({ type: 'CREATEELEMENT_ERROR', err });
+  }) : ref.add({
+    ...data,
+    authorid: authorid,
+    createdat: new Date(),
+  }).then(() => {
+    dispatch({ type: 'CREATEELEMENT_SUCCESS', data });
+  }).catch((err) => {
+    dispatch({ type: 'CREATEELEMENT_ERROR', err });
+  })
+};
 
 export const updateElement = (data, projectid, id) => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore();

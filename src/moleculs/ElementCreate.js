@@ -29,7 +29,7 @@ const ElementCreate = ({ createElement, type, projectid }) => {
           <SelectInput
             onChange={handleChange}
             value={values.item}
-            items={['note', 'task', 'file']}
+            items={['note', 'task', 'image', 'file']}
             name='item'
           />
           <TextInput
@@ -40,7 +40,7 @@ const ElementCreate = ({ createElement, type, projectid }) => {
             rows={3}
             multiline
           />
-          {values.item === 'file' && <Button
+          {(values.item === 'file' || values.item === 'image') && <Button
             color='secondary'
             variant='contained'
             component='label'
