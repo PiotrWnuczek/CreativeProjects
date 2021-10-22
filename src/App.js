@@ -5,10 +5,11 @@ import { ThemeProvider } from '@mui/material';
 import { blue } from '@mui/material/colors';
 import UserLayout from 'templates/UserLayout';
 import ProtectedRoute from 'auth/ProtectedRoute';
-import ProjectCreate from 'pages/ProjectCreate';
 import PersonalProjects from 'pages/PersonalProjects';
 import SocialProjects from 'pages/SocialProjects';
+import UserProfile from 'pages/UserProfile';
 import ProjectDetails from 'pages/ProjectDetails';
+import ProjectCreate from 'pages/ProjectCreate';
 import SigninForm from 'auth/SigninForm';
 import SignupForm from 'auth/SignupForm';
 
@@ -18,11 +19,7 @@ const theme = createTheme({
     secondary: blue,
   },
   typography: {
-    fontFamily: 'Quicksand',
-    fontWeightLight: 400,
-    fontWeightRegular: 500,
-    fontWeightMedium: 600,
-    fontWeightBold: 700,
+    fontFamily: 'Lato',
   },
 });
 
@@ -31,10 +28,11 @@ const App = () => (
     <BrowserRouter>
       <UserLayout>
         <Switch>
-          <ProtectedRoute path='/create' component={ProjectCreate} />
+          <ProtectedRoute path='/profile' component={UserProfile} />
           <ProtectedRoute exact path='/personal' component={PersonalProjects} />
           <ProtectedRoute exact path='/social' component={SocialProjects} />
           <ProtectedRoute path='/:type/:id' component={ProjectDetails} />
+          <ProtectedRoute path='/create' component={ProjectCreate} />
           <Route path='/signin' component={SigninForm} />
           <Route path='/signup' component={SignupForm} />
         </Switch>

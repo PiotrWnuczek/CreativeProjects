@@ -9,8 +9,8 @@ export const createElement = (data, file, projectid) => (
   const social = firestore.collection('projects').doc(projectid).collection('elements');
   const ref = data.type === 'personal' ? personal : social;
   const storageRef = firebase.storage().ref(projectid);
-  const fileRef = storageRef.child(file.name);
-  (data.item === 'file' || data.item === 'image') ? fileRef.put(file).then(() => (
+  const fileRef = file && storageRef.child(file.name);
+  data.item === 'file' && fileRef.put(file).then(() => (
     fileRef.getDownloadURL().then((url) => (
       ref.add({
         ...data,
@@ -23,7 +23,8 @@ export const createElement = (data, file, projectid) => (
     dispatch({ type: 'CREATEELEMENT_SUCCESS', data });
   }).catch((err) => {
     dispatch({ type: 'CREATEELEMENT_ERROR', err });
-  }) : ref.add({
+  })
+  data.item !== 'file' && ref.add({
     ...data,
     authorid: authorid,
     createdat: new Date(),

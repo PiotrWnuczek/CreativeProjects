@@ -2,75 +2,61 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { signup } from 'logic/authActions';
 import { Redirect } from 'react-router-dom';
-import { Container, Typography, Button } from '@mui/material';
-import { KeyboardArrowRight } from '@mui/icons-material';
 import { Formik } from 'formik';
+import { Button } from '@mui/material';
+import { KeyboardArrowRight } from '@mui/icons-material';
 import TextInput from 'atoms/TextInput';
 
 const SignupForm = ({ signup, error, auth }) => {
   const [mistake, setMistake] = useState(false);
 
   return (auth.uid ?
-    <Redirect to='/personal' /> :
-    <Container>
-      <Typography
-        variant='h6'
-        component='h2'
-        color='textSecondary'
-        gutterBottom
-      >
-        Sign Up
-      </Typography>
-      <Formik
-        initialValues={{
-          email: '',
-          password: '',
-          confirm: '',
-        }}
-        onSubmit={(values, { resetForm }) => {
-          if (values.password === values.confirm) {
-            signup({ email: values.email, password: values.password });
-            resetForm();
-          } else { setMistake(true) }
-        }}
-      >
-        {({ values, handleChange, handleSubmit }) => (
-          <form
-            onSubmit={handleSubmit}
-            autoComplete='off'
+    <Redirect to='/profile' /> :
+    <Formik
+      initialValues={{
+        email: '',
+        password: '',
+        confirm: '',
+      }}
+      onSubmit={(values) => {
+        if (values.password === values.confirm) {
+          signup({ email: values.email, password: values.password });
+        } else { setMistake(true) }
+      }}
+    >
+      {({ values, handleChange, handleSubmit }) => (
+        <form onSubmit={handleSubmit} >
+          <TextInput
+            onChange={handleChange}
+            value={values.email}
+            name='email'
+            type='email'
+          />
+          <TextInput
+            onChange={handleChange}
+            value={values.password}
+            name='password'
+            type='password'
+          />
+          <TextInput
+            onChange={handleChange}
+            value={values.confirm}
+            name='confirm'
+            type='password'
+          />
+          <Button
+            type='submit'
+            color='secondary'
+            variant='contained'
+            endIcon={<KeyboardArrowRight />}
           >
-            <TextInput
-              onChange={handleChange}
-              value={values.email}
-              name='email'
-              type='email'
-            />
-            <TextInput
-              onChange={handleChange}
-              value={values.password}
-              name='password'
-              type='password'
-            />
-            <TextInput
-              onChange={handleChange}
-              value={values.confirm}
-              name='confirm'
-              type='password'
-            />
-            <Button
-              type='submit'
-              color='secondary'
-              variant='contained'
-              endIcon={<KeyboardArrowRight />}
-            >
-              Sign Up
-            </Button>
-            {error && <p>{error}</p>}
-            {mistake && <p>Passowrds are not identical</p>}
-          </form>
-        )}
-      </Formik>
-    </Container>
+            Sign Up
+          </Button>
+          {error && <p>{error}</p>}
+          {mistake && <p>Passowrds are not identical</p>}
+        </form>
+      )}
+    </Formik>
   )
 };
 

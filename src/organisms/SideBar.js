@@ -2,21 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { signout } from 'logic/authActions';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Drawer, Typography, List } from '@mui/material';
+import { Drawer, Typography, List, Divider } from '@mui/material';
 import { ListItem, ListItemText, ListItemIcon } from '@mui/material';
+import { PersonOutline, Login, Logout } from '@mui/icons-material';
 import { AddCircleOutline, Subject } from '@mui/icons-material';
-import { Login, Logout } from '@mui/icons-material';
 
 const SideBar = ({ sideWidth, auth, signout }) => {
   const history = useHistory();
   const location = useLocation();
 
-  const loginMenu = [
+  const userMenu = [
     {
-      text: 'Create Projects',
+      text: 'Your Profile',
+      icon: <PersonOutline color='secondary' />,
+      path: '/profile',
+    },
+    {
+      text: 'Create Project',
       icon: <AddCircleOutline color='secondary' />,
       path: '/create',
     },
+  ];
+  const mainMenu = [
     {
       text: 'Personal Projects',
       icon: <Subject color='secondary' />,
@@ -28,8 +35,7 @@ const SideBar = ({ sideWidth, auth, signout }) => {
       path: '/social',
     },
   ];
-
-  const logoutMenu = [
+  const authMenu = [
     {
       text: 'Sign In',
       icon: <Login color='secondary' />,
@@ -41,8 +47,6 @@ const SideBar = ({ sideWidth, auth, signout }) => {
       path: '/signup',
     },
   ];
-
-  const menu = auth.uid ? loginMenu : logoutMenu;
 
   return (
     <Drawer
@@ -57,8 +61,44 @@ const SideBar = ({ sideWidth, auth, signout }) => {
       >
         Material App
       </Typography>
-      <List>
-        {menu.map(item =>
+      {auth.uid && <div>
+        <List>
+          {userMenu.map(item =>
+            <ListItem button
+              sx={{ backgroundColor: location.pathname === item.path && '#f4f4f4' }}
+              onClick={() => history.push(item.path)}
+              key={item.text}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          )}
+        </List>
+        <Divider />
+        <List>
+          {mainMenu.map(item =>
+            <ListItem button
+              sx={{ backgroundColor: location.pathname === item.path && '#f4f4f4' }}
+              onClick={() => history.push(item.path)}
+              key={item.text}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          )}
+        </List>
+        <List>
+          <ListItem button
+            sx={{ marginTop: '50vh' }}
+            onClick={signout}
+          >
+            <ListItemIcon><Logout color='secondary' /></ListItemIcon>
+            <ListItemText primary='Sign Out' />
+          </ListItem>
+        </List>
+      </div>}
+      {!auth.uid && <List>
+        {authMenu.map(item =>
           <ListItem button
             sx={{ backgroundColor: location.pathname === item.path && '#f4f4f4' }}
             onClick={() => history.push(item.path)}
@@ -68,15 +108,7 @@ const SideBar = ({ sideWidth, auth, signout }) => {
             <ListItemText primary={item.text} />
           </ListItem>
         )}
-        {auth.uid &&
-          <ListItem button
-            sx={{ marginTop: '60vh' }}
-            onClick={signout}
-          >
-            <ListItemIcon><Logout color='secondary' /></ListItemIcon>
-            <ListItemText primary='Sign Out' />
-          </ListItem>}
-      </List>
+      </List>}
     </Drawer>
   )
 };

@@ -1,23 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createProject } from 'logic/projectActions';
+import { createSkill } from 'logic/skillActions';
 import { Formik } from 'formik';
 import { Button } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import TextInput from 'atoms/TextInput';
-import RadioInput from 'atoms/RadioInput';
 
-const ProjectCreate = ({ createProject, history }) => (
+const SkillCreate = ({ createSkill }) => (
   <Formik
     initialValues={{
       title: '',
       description: '',
-      category: 'work',
-      type: 'personal',
     }}
-    onSubmit={(values) => {
-      createProject({ ...values });
-      history.push('/' + values.type);
+    onSubmit={(values, { resetForm }) => {
+      createSkill({ ...values });
+      resetForm();
     }}
   >
     {({ values, handleChange, handleSubmit }) => (
@@ -36,20 +33,8 @@ const ProjectCreate = ({ createProject, history }) => (
           value={values.description}
           name='description'
           type='text'
-          rows={7}
+          rows={2}
           multiline
-        />
-        <RadioInput
-          onChange={handleChange}
-          value={values.category}
-          items={['work', 'life']}
-          name='category'
-        />
-        <RadioInput
-          onChange={handleChange}
-          value={values.type}
-          items={['personal', 'social']}
-          name='type'
         />
         <Button
           type='submit'
@@ -57,7 +42,7 @@ const ProjectCreate = ({ createProject, history }) => (
           variant='contained'
           endIcon={<KeyboardArrowRight />}
         >
-          Create Project
+          Add Skill
         </Button>
       </form>
     )}
@@ -65,8 +50,8 @@ const ProjectCreate = ({ createProject, history }) => (
 );
 
 const mapDispatchToProps = (dispatch) => ({
-  createProject: (data) => dispatch(createProject(data)),
+  createSkill: (data) => dispatch(createSkill(data)),
 });
 
 export default connect(null, mapDispatchToProps)
-  (ProjectCreate);
+  (SkillCreate);

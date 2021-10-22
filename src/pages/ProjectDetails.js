@@ -2,9 +2,9 @@ import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { Grid, Box } from '@mui/material';
+import { Grid } from '@mui/material';
 import DetailsCard from 'moleculs/DetailsCard';
-import DetailsGrid from 'organisms/DetailsGrid';
+import ElementsGrid from 'organisms/ElementsGrid';
 import ElementCreate from 'moleculs/ElementCreate';
 
 const ProjectDetails = ({ project, id, profile, elements }) => (
@@ -19,12 +19,10 @@ const ProjectDetails = ({ project, id, profile, elements }) => (
         type={project.type}
         projectid={id}
       />
-      <Box sx={{ mt: 4 }}>
-        <DetailsGrid
-          elements={elements}
-          projectid={id}
-        />
-      </Box>
+      <ElementsGrid
+        elements={elements}
+        projectid={id}
+      />
     </Grid>
   </Grid> : <p className='text-center'>loading...</p>
 );

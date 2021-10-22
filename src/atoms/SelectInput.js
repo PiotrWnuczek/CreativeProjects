@@ -7,10 +7,10 @@ const SelectInput = ({ name, items, ...props }) => (
   <FormControl fullWidth>
     <InputLabel color='secondary'>{name}</InputLabel>
     <Select {...props}
-      color='secondary'
+      sx={{ mb: 2 }}
       label={name}
       name={name}
-      required
+      color='secondary'
     >
       {items.map(item =>
         <MenuItem

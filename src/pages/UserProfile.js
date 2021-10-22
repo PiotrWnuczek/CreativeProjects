@@ -1,15 +1,21 @@
-import React from 'react'
+import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import ProjectsGrid from 'organisms/ProjectsGrid';
+import SkillCreate from 'moleculs/SkillCreate';
+import SkillsGrid from 'organisms/SkillsGrid';
 
-const PersonalProjects = ({ personal }) => (
-  <ProjectsGrid projects={personal} type='personal' />
+const UserProfile = ({ skills }) => (
+  <div>
+    <SkillCreate />
+    <SkillsGrid
+      skills={skills}
+    />
+  </div>
 );
 
 const mapStateToProps = (state) => ({
-  personal: state.firestore.ordered.personal,
+  skills: state.firestore.ordered.skills,
   auth: state.firebase.auth,
 });
 
@@ -18,9 +24,9 @@ export default compose(
   firestoreConnect(props => [
     {
       collection: 'users', doc: props.auth.uid,
-      subcollections: [{ collection: 'projects' }],
+      subcollections: [{ collection: 'skills' }],
       orderBy: ['createdat', 'desc'],
-      storeAs: 'personal',
+      storeAs: 'skills',
     },
   ]),
-)(PersonalProjects);
+)(UserProfile);
