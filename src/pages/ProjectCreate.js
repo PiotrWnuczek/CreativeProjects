@@ -11,12 +11,12 @@ const ProjectCreate = ({ createProject, history }) => (
   <Formik
     initialValues={{
       title: '',
+      keywords: '',
       description: '',
-      category: 'work',
       type: 'personal',
     }}
     onSubmit={(values) => {
-      createProject({ ...values });
+      createProject({ ...values, keywords: values.keywords.split(' ') });
       history.push('/' + values.type);
     }}
   >
@@ -33,17 +33,17 @@ const ProjectCreate = ({ createProject, history }) => (
         />
         <TextInput
           onChange={handleChange}
+          value={values.keywords}
+          name='keywords'
+          type='text'
+        />
+        <TextInput
+          onChange={handleChange}
           value={values.description}
           name='description'
           type='text'
           rows={7}
           multiline
-        />
-        <RadioInput
-          onChange={handleChange}
-          value={values.category}
-          items={['work', 'life']}
-          name='category'
         />
         <RadioInput
           onChange={handleChange}

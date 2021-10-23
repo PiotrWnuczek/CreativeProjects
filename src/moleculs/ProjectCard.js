@@ -4,21 +4,23 @@ import { connect } from 'react-redux';
 import { updateProject } from 'logic/projectActions';
 import { IconButton, Typography } from '@mui/material';
 import { Card, CardHeader, CardContent, Avatar } from '@mui/material';
+import { red, green, blue, orange, indigo } from '@mui/material/colors';
 import { FolderOpen, PeopleOutline, People } from '@mui/icons-material';
-import { red, green, blue } from '@mui/material/colors';
 
 const ProjectCard = ({ project, profile, updateProject }) => {
   const history = useHistory();
-  let avatarColor = blue[700];
-  if (project.category === 'work') { avatarColor = red[700] }
-  if (project.category === 'life') { avatarColor = green[700] }
+  const colors = [red, green, blue, orange, indigo];
+  const number = project.title.charCodeAt(0) % 5
+  let avatarColor = colors[number][700];
 
   return (
     <Card elevation={1}>
       <CardHeader
+        title={project.title}
+        subheader={project.keywords && project.keywords.join(' ')}
         avatar={
           <Avatar sx={{ backgroundColor: avatarColor }}>
-            {project.category[0].toUpperCase()}
+            {project.title[0].toUpperCase()}
           </Avatar>
         }
         action={
@@ -48,8 +50,6 @@ const ProjectCard = ({ project, profile, updateProject }) => {
                 </IconButton>}
           </div>
         }
-        title={project.title}
-        subheader={project.category}
       />
       <CardContent>
         <Typography

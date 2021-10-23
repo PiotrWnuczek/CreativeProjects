@@ -3,7 +3,6 @@ import { FormControl, MenuItem } from '@mui/material';
 import { Select, InputLabel } from '@mui/material';
 
 const SelectInput = ({ name, items, ...props }) => (
-
   <FormControl fullWidth>
     <InputLabel color='secondary'>{name}</InputLabel>
     <Select {...props}

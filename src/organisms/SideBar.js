@@ -57,7 +57,7 @@ const SideBar = ({ sideWidth, auth, signout }) => {
       <Typography
         sx={{ p: 2, cursor: 'pointer' }}
         variant='h5'
-        onClick={() => history.push('/personal')}
+        onClick={() => history.push('/profile')}
       >
         Material App
       </Typography>
