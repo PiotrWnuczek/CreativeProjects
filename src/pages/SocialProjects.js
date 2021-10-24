@@ -5,7 +5,10 @@ import { firestoreConnect } from 'react-redux-firebase';
 import ProjectsGrid from 'organisms/ProjectsGrid';
 
 const SocialProjects = ({ social }) => (
-  <ProjectsGrid projects={social} type='social' />
+  <ProjectsGrid
+    projects={social}
+    type='social'
+  />
 );
 
 const mapStateToProps = (state) => ({

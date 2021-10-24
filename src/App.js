@@ -3,8 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material';
 import { blue } from '@mui/material/colors';
-import UserLayout from 'templates/UserLayout';
-import ProtectedRoute from 'auth/ProtectedRoute';
+import StandardLayout from 'templates/StandardLayout';
+import ProtectedRoute from 'templates/ProtectedRoute';
 import PersonalProjects from 'pages/PersonalProjects';
 import SocialProjects from 'pages/SocialProjects';
 import UserProfile from 'pages/UserProfile';
@@ -14,19 +14,19 @@ import SigninForm from 'auth/SigninForm';
 import SignupForm from 'auth/SignupForm';
 
 const theme = createTheme({
+  typography: {
+    fontFamily: 'Lato',
+  },
   palette: {
     primary: { main: '#fefefe' },
     secondary: blue,
-  },
-  typography: {
-    fontFamily: 'Lato',
   },
 });
 
 const App = () => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
-      <UserLayout>
+      <StandardLayout>
         <Switch>
           <ProtectedRoute path='/profile' component={UserProfile} />
           <ProtectedRoute exact path='/personal' component={PersonalProjects} />
@@ -36,7 +36,7 @@ const App = () => (
           <Route path='/signin' component={SigninForm} />
           <Route path='/signup' component={SignupForm} />
         </Switch>
-      </UserLayout>
+      </StandardLayout>
     </BrowserRouter>
   </ThemeProvider>
 );

@@ -4,15 +4,15 @@ import { updateSkill, removeSkill } from 'logic/skillActions';
 import { Typography, Card, IconButton } from '@mui/material';
 import { CardHeader, CardContent, Avatar } from '@mui/material';
 import { red, green, blue, orange, indigo } from '@mui/material/colors';
-import { Edit, Delete } from '@mui/icons-material';
+import { Edit, Done, Delete } from '@mui/icons-material';
 import { Formik } from 'formik';
-import ButtonInput from 'atoms/ButtonInput';
+import TextInput from 'atoms/TextInput';
 
 const SkillCard = ({ skill, updateSkill, removeSkill }) => {
   const [edit, setEdit] = useState(false);
 
   const colors = [red, green, blue, orange, indigo];
-  const number = skill.title.charCodeAt(0) % 5
+  const number = skill.title.charCodeAt(0) % 5;
   let avatarColor = colors[number][700];
 
   return (
@@ -25,8 +25,8 @@ const SkillCard = ({ skill, updateSkill, removeSkill }) => {
           </Avatar>
         }
         action={<>
-          <IconButton onClick={() => setEdit(true)}>
-            <Edit />
+          <IconButton onClick={() => setEdit(!edit)}>
+            {edit ? <Done /> : <Edit />}
           </IconButton>
           <IconButton onClick={() => removeSkill(skill.id)}>
             <Delete />
@@ -51,15 +51,15 @@ const SkillCard = ({ skill, updateSkill, removeSkill }) => {
         >
           {({ values, handleChange, handleSubmit }) => (
             <form
-              onSubmit={handleSubmit}
+              onBlur={handleSubmit}
               autoComplete='off'
             >
-              <ButtonInput
+              <TextInput
                 onChange={handleChange}
                 value={values.description}
                 name='description'
                 type='text'
-                rows={5}
+                rows={6}
                 multiline
               />
             </form>

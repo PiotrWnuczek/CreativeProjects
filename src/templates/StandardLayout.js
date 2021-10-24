@@ -16,7 +16,7 @@ const StyledWrapper = styled('div')({
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
-const UserLayout = ({ children }) => (
+const StandardLayout = ({ children }) => (
   <StyledWrapper>
     <TopBar sideWidth={sideWidth} />
     <SideBar sideWidth={sideWidth} />
@@ -26,4 +26,4 @@ const UserLayout = ({ children }) => (
   </StyledWrapper>
 );
 
-export default UserLayout;
+export default StandardLayout;

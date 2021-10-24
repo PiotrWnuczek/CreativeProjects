@@ -15,8 +15,8 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
   return (
     <Card elevation={1}>
       <CardHeader
-        title={
-          <>{edit === 'title' ?
+        title={<>
+          {edit === 'title' ?
             <DetailsEdit
               name='title'
               setEdit={setEdit}
@@ -29,29 +29,8 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
               <IconButton onClick={() => setEdit('title')}>
                 <Edit />
               </IconButton>
-            </div>
-          }</>
-        }
-        subheader={
-          <>{edit === 'category' ?
-            <DetailsEdit
-              name='category'
-              setEdit={setEdit}
-              value={{ category: details.category }}
-              type={details.type}
-              id={id}
-            /> :
-            <div>
-              {details.category}
-              <IconButton
-                size='small'
-                onClick={() => setEdit('category')}
-              >
-                <Edit fontSize='small' />
-              </IconButton>
-            </div>
-          }</>
-        }
+            </div>}
+        </>}
       />
       <CardContent>
         <Typography
@@ -75,8 +54,7 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
               >
                 <Edit fontSize='small' />
               </IconButton>
-            </div>
-          }
+            </div>}
           <TeamList
             id={id}
             details={details}

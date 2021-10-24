@@ -9,8 +9,9 @@ import { FolderOpen, PeopleOutline, People } from '@mui/icons-material';
 
 const ProjectCard = ({ project, profile, updateProject }) => {
   const history = useHistory();
+
   const colors = [red, green, blue, orange, indigo];
-  const number = project.title.charCodeAt(0) % 5
+  const number = project.title.charCodeAt(0) % 5;
   let avatarColor = colors[number][700];
 
   return (
@@ -23,33 +24,24 @@ const ProjectCard = ({ project, profile, updateProject }) => {
             {project.title[0].toUpperCase()}
           </Avatar>
         }
-        action={
-          <div>
-            {project.team.some(i =>
-              i.email === profile.email && (i.role === 'member' || i.role === 'admin')
-            ) ? <IconButton
-              onClick={() => {
-                history.push('/' + project.type + '/' + project.id);
-              }}
-            >
-              <FolderOpen />
-            </IconButton> :
-              project.team.some(i => i.email === profile.email) ?
-                <IconButton>
-                  <People />
-                </IconButton> :
-                <IconButton
-                  onClick={() => {
-                    updateProject({
-                      type: project.type,
-                      team: [...project.team, { email: profile.email, role: 'wait' }],
-                    }, project.id);
-                  }}
-                >
-                  <PeopleOutline />
-                </IconButton>}
-          </div>
-        }
+        action={<>
+          {project.team.some(i =>
+            i.email === profile.email && (i.role === 'member' || i.role === 'admin')
+          ) && <IconButton onClick={() => {
+            history.push('/' + project.type + '/' + project.id)
+          }}><FolderOpen /></IconButton>}
+          {project.team.some(i =>
+            i.email === profile.email && i.role === 'wait'
+          ) && <IconButton><People /></IconButton>}
+          {!project.team.some(i =>
+            i.email === profile.email
+          ) && <IconButton onClick={() => {
+            updateProject({
+              type: project.type,
+              team: [...project.team, { email: profile.email, role: 'wait' }],
+            }, project.id);
+          }}><PeopleOutline /></IconButton>}
+        </>}
       />
       <CardContent>
         <Typography

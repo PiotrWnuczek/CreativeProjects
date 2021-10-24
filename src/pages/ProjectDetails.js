@@ -4,15 +4,18 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { Grid } from '@mui/material';
 import DetailsCard from 'moleculs/DetailsCard';
+import ElementCreate from 'organisms/ElementCreate';
 import ElementsGrid from 'organisms/ElementsGrid';
-import ElementCreate from 'moleculs/ElementCreate';
 
 const ProjectDetails = ({ project, id, profile, elements }) => (
   project && project.team.some(i =>
     i.email === profile.email && (i.role === 'member' || i.role === 'admin')
   ) ? <Grid container spacing={3}>
     <Grid item md={3}>
-      <DetailsCard details={project} id={id} />
+      <DetailsCard
+        details={project}
+        id={id}
+      />
     </Grid>
     <Grid item md={9}>
       <ElementCreate

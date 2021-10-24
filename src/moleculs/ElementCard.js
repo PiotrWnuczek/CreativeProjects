@@ -14,7 +14,7 @@ const ElementCard = ({ element, projectid, updateElement, removeElement }) => {
   const [edit, setEdit] = useState(false);
 
   const colors = [red, green, blue, orange, indigo];
-  const number = element.item.charCodeAt(0) % 5
+  const number = element.item.charCodeAt(0) % 5;
   let avatarColor = colors[number][700];
 
   return (
