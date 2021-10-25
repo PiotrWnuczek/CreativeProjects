@@ -1,4 +1,6 @@
-const initial = { error: null };
+const initial = {
+  error: null
+};
 
 const authReducer = (state = initial, action) => {
   switch (action.type) {
@@ -16,6 +18,12 @@ const authReducer = (state = initial, action) => {
       return { ...state, error: action.err.message };
     case 'SIGNOUT_SUCCESS':
       console.log('signout success');
+      return state;
+    case 'UPDATEPROFILE_SUCCESS':
+      console.log(action.data);
+      return state;
+    case 'UPDATEPROFILE_ERROR':
+      console.log(action.err);
       return state;
     default: return state;
   }

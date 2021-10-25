@@ -1,4 +1,6 @@
-const initial = { elements: [] };
+const initial = {
+  elements: []
+};
 
 const elementReducer = (state = initial, action) => {
   switch (action.type) {

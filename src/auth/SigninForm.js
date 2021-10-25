@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signin } from 'logic/authActions';
+import { signIn } from 'logic/profileActions';
 import { Redirect } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Button } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import TextInput from 'atoms/TextInput';
 
-const SigninForm = ({ signin, error, auth }) => (auth.uid ?
+const SigninForm = ({ signIn, error, auth }) => (auth.uid ?
   <Redirect to='/profile' /> :
   <Formik
     initialValues={{
@@ -15,7 +15,7 @@ const SigninForm = ({ signin, error, auth }) => (auth.uid ?
       password: '',
     }}
     onSubmit={(values) => {
-      signin(values);
+      signIn(values);
     }}
   >
     {({ values, handleChange, handleSubmit }) => (
@@ -52,7 +52,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  signin: (creds) => dispatch(signin(creds)),
+  signIn: (creds) => dispatch(signIn(creds)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)

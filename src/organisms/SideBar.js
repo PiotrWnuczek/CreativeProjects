@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signout } from 'logic/authActions';
+import { signOut } from 'logic/profileActions';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Drawer, Typography, List, Divider } from '@mui/material';
 import { ListItem, ListItemText, ListItemIcon } from '@mui/material';
 import { PersonOutline, Login, Logout } from '@mui/icons-material';
 import { AddCircleOutline, Subject } from '@mui/icons-material';
 
-const SideBar = ({ sideWidth, auth, signout }) => {
+const SideBar = ({ sideWidth, auth, signOut }) => {
   const history = useHistory();
   const location = useLocation();
 
@@ -90,7 +90,7 @@ const SideBar = ({ sideWidth, auth, signout }) => {
         <List>
           <ListItem button
             sx={{ marginTop: '50vh' }}
-            onClick={signout}
+            onClick={signOut}
           >
             <ListItemIcon><Logout color='secondary' /></ListItemIcon>
             <ListItemText primary='Sign Out' />
@@ -118,7 +118,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToPorps = (dispatch) => ({
-  signout: () => dispatch(signout()),
+  signOut: () => dispatch(signOut()),
 });
 
 export default connect(mapStateToProps, mapDispatchToPorps)

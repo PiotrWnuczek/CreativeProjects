@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material';
 import { blue } from '@mui/material/colors';
@@ -28,13 +29,14 @@ const App = () => (
     <BrowserRouter>
       <StandardLayout>
         <Switch>
+          <Route path='/signin' component={SigninForm} />
+          <Route path='/signup' component={SignupForm} />
           <ProtectedRoute path='/profile' component={UserProfile} />
+          <ProtectedRoute path='/create' component={ProjectCreate} />
+          <ProtectedRoute exact path='/' render={() => <Redirect to='/profile' />} />
           <ProtectedRoute exact path='/personal' component={PersonalProjects} />
           <ProtectedRoute exact path='/social' component={SocialProjects} />
           <ProtectedRoute path='/:type/:id' component={ProjectDetails} />
-          <ProtectedRoute path='/create' component={ProjectCreate} />
-          <Route path='/signin' component={SigninForm} />
-          <Route path='/signup' component={SignupForm} />
         </Switch>
       </StandardLayout>
     </BrowserRouter>

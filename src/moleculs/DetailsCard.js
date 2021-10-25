@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { removeProject, updateProject } from 'logic/projectActions';
 import { Typography, Card, IconButton } from '@mui/material';
 import { CardHeader, CardContent, CardActions } from '@mui/material';
-import { Edit, DeleteOutline, ExitToApp } from '@mui/icons-material';
-import DetailsEdit from 'moleculs/DetailsEdit';
+import { Edit, Done, Delete, ExitToApp } from '@mui/icons-material';
+import { Formik } from 'formik';
+import TextInput from 'atoms/TextInput';
 import TeamList from 'atoms/TeamList';
 
 const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => {
@@ -15,77 +16,84 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
   return (
     <Card elevation={1}>
       <CardHeader
-        title={<>
-          {edit === 'title' ?
-            <DetailsEdit
-              name='title'
-              setEdit={setEdit}
-              value={{ title: details.title }}
-              type={details.type}
-              id={id}
-            /> :
-            <div>
-              {details.title}
-              <IconButton onClick={() => setEdit('title')}>
-                <Edit />
-              </IconButton>
-            </div>}
+        title={details.title}
+        action={<>
+          {!edit && <IconButton
+            onClick={() => setEdit(true)}
+          >
+            <Edit />
+          </IconButton>}
+          {edit && <IconButton
+            type='submit'
+            form='edit'
+          >
+            <Done />
+          </IconButton>}
         </>}
       />
       <CardContent>
-        <Typography
-          variant='body1'
+        {!edit && <Typography
+          variant='body2'
           color='textSecondary'
           component='div'
         >
-          {edit === 'description' ?
-            <DetailsEdit
-              name='description'
-              setEdit={setEdit}
-              value={{ description: details.description }}
-              type={details.type}
-              id={id}
-            /> :
-            <div>
-              {details.description}
-              <IconButton
-                size='small'
-                onClick={() => setEdit('description')}
-              >
-                <Edit fontSize='small' />
-              </IconButton>
-            </div>}
+          {details.description}
           <TeamList
             id={id}
             details={details}
             profile={profile}
             updateProject={updateProject}
           />
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton
-          onClick={() => {
-            details.team.some(i =>
-              i.role === 'admin' && i.email !== profile.email
-            ) && updateProject({
-              type: details.type,
-              team: details.team.filter(i => i.email !== profile.email),
-            }, id);
+        </Typography>}
+        {edit && <Formik
+          initialValues={{
+            title: details.title,
+            description: details.description,
+          }}
+          onSubmit={(values) => {
+            updateProject({ type: details.type, ...values }, id);
+            setEdit(false);
           }}
         >
-          <ExitToApp />
-        </IconButton>
+          {({ values, handleChange, handleSubmit }) => (
+            <form
+              id='edit'
+              onSubmit={handleSubmit}
+              autoComplete='off'
+            >
+              <TextInput
+                onChange={handleChange}
+                value={values.title}
+                name='title'
+                type='text'
+              />
+              <TextInput
+                onChange={handleChange}
+                value={values.description}
+                name='description'
+                type='text'
+                rows={8}
+                multiline
+              />
+            </form>
+          )}
+        </Formik>}
+      </CardContent>
+      <CardActions>
+        {details.team.some(i =>
+          i.role === 'admin' && i.email !== profile.email
+        ) && <IconButton onClick={() => {
+          updateProject({
+            type: details.type,
+            team: details.team.filter(i => i.email !== profile.email),
+          }, id);
+        }}><ExitToApp /></IconButton>}
         {details.team.some(i =>
           i.email === profile.email && i.role === 'admin'
-        ) && <IconButton
-          onClick={() => {
-            removeProject({ type: details.type }, id);
-            history.push('/' + details.type);
-          }}
-        >
-            <DeleteOutline />
-          </IconButton>}
+        ) && <IconButton onClick={() => {
+          removeProject({ type: details.type }, id);
+          history.push('/' + details.type);
+        }}><Delete /></IconButton>}
       </CardActions>
     </Card>
   )

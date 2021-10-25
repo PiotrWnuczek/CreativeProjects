@@ -1,31 +1,42 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { signup } from 'logic/authActions';
+import { signUp } from 'logic/profileActions';
 import { Redirect } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Button } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import TextInput from 'atoms/TextInput';
 
-const SignupForm = ({ signup, error, auth }) => {
+const SignupForm = ({ signUp, error, auth }) => {
   const [mistake, setMistake] = useState(false);
 
   return (auth.uid ?
     <Redirect to='/profile' /> :
     <Formik
       initialValues={{
+        name: '',
         email: '',
         password: '',
         confirm: '',
       }}
       onSubmit={(values) => {
         if (values.password === values.confirm) {
-          signup({ email: values.email, password: values.password });
+          signUp({
+            name: values.name,
+            email: values.email,
+            password: values.password,
+          });
         } else { setMistake(true) }
       }}
     >
       {({ values, handleChange, handleSubmit }) => (
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}>
+          <TextInput
+            onChange={handleChange}
+            value={values.name}
+            name='name'
+            type='text'
+          />
           <TextInput
             onChange={handleChange}
             value={values.email}
@@ -66,7 +77,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  signup: (user) => dispatch(signup(user)),
+  signUp: (user) => dispatch(signUp(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)

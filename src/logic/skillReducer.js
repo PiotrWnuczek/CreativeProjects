@@ -1,4 +1,6 @@
-const initial = { skills: [] };
+const initial = {
+  skills: []
+};
 
 const skillReducer = (state = initial, action) => {
   switch (action.type) {

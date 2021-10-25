@@ -1,4 +1,4 @@
-export const signin = (creds) => (dispatch, gs, { getFirebase }) => {
+export const signIn = (creds) => (dispatch, gs, { getFirebase }) => {
   const firebase = getFirebase();
   firebase.auth().signInWithEmailAndPassword(
     creds.email, creds.password,
@@ -9,14 +9,14 @@ export const signin = (creds) => (dispatch, gs, { getFirebase }) => {
   })
 };
 
-export const signout = () => (dispatch, gs, { getFirebase }) => {
+export const signOut = () => (dispatch, gs, { getFirebase }) => {
   const firebase = getFirebase();
   firebase.auth().signOut().then(() => {
     dispatch({ type: 'SIGNOUT_SUCCESS' });
   })
 };
 
-export const signup = (user) => (dispatch, gs, { getFirebase, getFirestore }) => {
+export const signUp = (user) => (dispatch, gs, { getFirebase, getFirestore }) => {
   const firebase = getFirebase();
   const firestore = getFirestore();
   firebase.auth().createUserWithEmailAndPassword(
@@ -29,5 +29,18 @@ export const signup = (user) => (dispatch, gs, { getFirebase, getFirestore }) =>
     dispatch({ type: 'SIGNUP_SUCCESS' });
   }).catch((err) => {
     dispatch({ type: 'SIGNUP_ERROR', err });
+  })
+};
+
+export const updateProfile = (data) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+  const authorid = getState().firebase.auth.uid;
+  const ref = firestore.collection('users').doc(authorid);
+  ref.update({
+    ...data,
+  }).then(() => {
+    dispatch({ type: 'UPDATEPROFILE_SUCCESS', data });
+  }).catch((err) => {
+    dispatch({ type: 'UPDATEPROFILE_ERROR', err });
   })
 };
