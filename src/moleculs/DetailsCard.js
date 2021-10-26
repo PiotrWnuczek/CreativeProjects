@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { removeProject, updateProject } from 'logic/projectActions';
+import { removeProject, updateProject } from 'actions/projectActions';
 import { Typography, Card, IconButton } from '@mui/material';
-import { CardHeader, CardContent, CardActions } from '@mui/material';
-import { Edit, Done, Delete, ExitToApp } from '@mui/icons-material';
+import { CardHeader, CardContent } from '@mui/material';
+import { Edit, Done, Delete } from '@mui/icons-material';
 import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
+import KeywordsList from 'atoms/KeywordsList';
 import TeamList from 'atoms/TeamList';
 
 const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => {
@@ -20,31 +21,38 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
         action={<>
           {!edit && <IconButton
             onClick={() => setEdit(true)}
-          >
-            <Edit />
-          </IconButton>}
+          ><Edit /></IconButton>}
           {edit && <IconButton
             type='submit'
             form='edit'
-          >
-            <Done />
-          </IconButton>}
+          ><Done /></IconButton>}
+          {details.team.some(i =>
+            i.email === profile.email && i.role === 'admin'
+          ) && <IconButton onClick={() => {
+            removeProject({ type: details.type }, id);
+            history.push('/' + details.type);
+          }}><Delete /></IconButton>}
         </>}
       />
       <CardContent>
         {!edit && <Typography
           variant='body2'
           color='textSecondary'
-          component='div'
         >
           {details.description}
-          <TeamList
-            id={id}
-            details={details}
-            profile={profile}
-            updateProject={updateProject}
-          />
         </Typography>}
+        {!edit && <KeywordsList
+          id={id}
+          details={details}
+          profile={profile}
+          updateProject={updateProject}
+        />}
+        {details.type === 'social' && !edit && <TeamList
+          id={id}
+          details={details}
+          profile={profile}
+          updateProject={updateProject}
+        />}
         {edit && <Formik
           initialValues={{
             title: details.title,
@@ -72,29 +80,13 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
                 value={values.description}
                 name='description'
                 type='text'
-                rows={8}
+                rows={10}
                 multiline
               />
             </form>
           )}
         </Formik>}
       </CardContent>
-      <CardActions>
-        {details.team.some(i =>
-          i.role === 'admin' && i.email !== profile.email
-        ) && <IconButton onClick={() => {
-          updateProject({
-            type: details.type,
-            team: details.team.filter(i => i.email !== profile.email),
-          }, id);
-        }}><ExitToApp /></IconButton>}
-        {details.team.some(i =>
-          i.email === profile.email && i.role === 'admin'
-        ) && <IconButton onClick={() => {
-          removeProject({ type: details.type }, id);
-          history.push('/' + details.type);
-        }}><Delete /></IconButton>}
-      </CardActions>
     </Card>
   )
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/system';
-import TopBar from 'organisms/TopBar';
-import SideBar from 'organisms/SideBar';
+import TopBar from 'templates/TopBar';
+import SideBar from 'templates/SideBar';
 
 const sideWidth = 250;
 
@@ -16,7 +16,7 @@ const StyledWrapper = styled('div')({
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
-const StandardLayout = ({ children }) => (
+const MainLayout = ({ children }) => (
   <StyledWrapper>
     <TopBar sideWidth={sideWidth} />
     <SideBar sideWidth={sideWidth} />
@@ -26,4 +26,4 @@ const StandardLayout = ({ children }) => (
   </StyledWrapper>
 );
 
-export default StandardLayout;
+export default MainLayout;

@@ -1,19 +1,22 @@
 import React from 'react';
 import { Typography, IconButton } from '@mui/material';
-import { KeyboardArrowRight } from '@mui/icons-material';
+import { KeyboardArrowRight, Close } from '@mui/icons-material';
 
 const TeamList = ({ id, details, profile, updateProject }) => (
   <div>
     <Typography
-      variant='subtitle1'
-      sx={{ mt: 4 }}
+      variant='body2'
+      color='textSecondary'
+      sx={{ mt: 3 }}
     >
       Team:
     </Typography>
     {details.team && details.team.map(item =>
       <Typography
         key={item.email}
-        sx={{ fontSize: 12 }}
+        sx={{ fontSize: 'small' }}
+        variant='body2'
+        color='textSecondary'
       >
         {item.email} <br /> ({item.role})
         {details.team.some(i =>
@@ -32,7 +35,19 @@ const TeamList = ({ id, details, profile, updateProject }) => (
             }, id);
           }}
         >
-            <KeyboardArrowRight sx={{ fontSize: 16 }} />
+            <KeyboardArrowRight sx={{ fontSize: 'small' }} />
+          </IconButton>}
+        {details.team.some(i =>
+          i.role === 'admin' && i.email !== item.email
+        ) && <IconButton
+          size='small'
+          onClick={() => {
+            updateProject({
+              type: details.type,
+              team: details.team.filter(i => i.email !== item.email),
+            }, id);
+          }}>
+            <Close sx={{ fontSize: 'small' }} />
           </IconButton>}
       </Typography>
     )}

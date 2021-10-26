@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { updateProfile } from 'logic/profileActions';
+import { updateProfile } from 'actions/profileActions';
 import { IconButton, Typography } from '@mui/material';
 import { Card, CardHeader, CardContent } from '@mui/material';
 import { Edit, Done } from '@mui/icons-material';
@@ -17,15 +17,11 @@ const ProfileCard = ({ profile, updateProfile }) => {
         action={<>
           {!edit && <IconButton
             onClick={() => setEdit(true)}
-          >
-            <Edit />
-          </IconButton>}
+          ><Edit /></IconButton>}
           {edit && <IconButton
             type='submit'
             form='edit'
-          >
-            <Done />
-          </IconButton>}
+          ><Done /></IconButton>}
         </>}
       />
       <CardContent>
@@ -62,7 +58,7 @@ const ProfileCard = ({ profile, updateProfile }) => {
                 value={values.description}
                 name='description'
                 type='text'
-                rows={8}
+                rows={10}
                 multiline
               />
             </form>

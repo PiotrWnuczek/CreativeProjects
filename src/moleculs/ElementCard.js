@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { updateElement, removeElement } from 'logic/elementActions';
+import { updateElement, removeElement } from 'actions/elementActions';
 import { Typography, Card, IconButton } from '@mui/material';
 import { CardHeader, CardContent, Avatar } from '@mui/material';
 import { red, green, blue, orange, indigo } from '@mui/material/colors';
-import { Edit, Download, Delete } from '@mui/icons-material';
+import { Edit, Done, Download, Delete } from '@mui/icons-material';
 import { Formik } from 'formik';
-import ButtonInput from 'atoms/ButtonInput';
+import TextInput from 'atoms/TextInput';
 import fileDownload from 'js-file-download';
 import axios from 'axios';
 
 const ElementCard = ({ element, projectid, updateElement, removeElement }) => {
   const [edit, setEdit] = useState(false);
-
   const colors = [red, green, blue, orange, indigo];
   const number = element.item.charCodeAt(0) % 5;
   let avatarColor = colors[number][700];
@@ -30,12 +29,14 @@ const ElementCard = ({ element, projectid, updateElement, removeElement }) => {
           {element.item === 'file' && <IconButton onClick={() => {
             axios.get(element.url, { responseType: 'blob' })
               .then(res => fileDownload(res.data, 'file.txt'))
-          }}>
-            <Download />
-          </IconButton>}
-          <IconButton onClick={() => setEdit(true)}>
-            <Edit />
-          </IconButton>
+          }}><Download /></IconButton>}
+          {!edit && <IconButton
+            onClick={() => setEdit(true)}
+          ><Edit /></IconButton>}
+          {edit && <IconButton
+            type='submit'
+            form='edit'
+          ><Done /></IconButton>}
           <IconButton onClick={() => {
             removeElement({ type: element.type }, projectid, element.id);
           }}>
@@ -61,10 +62,11 @@ const ElementCard = ({ element, projectid, updateElement, removeElement }) => {
         >
           {({ values, handleChange, handleSubmit }) => (
             <form
+              id='edit'
               onSubmit={handleSubmit}
               autoComplete='off'
             >
-              <ButtonInput
+              <TextInput
                 onChange={handleChange}
                 value={values.content}
                 name='content'

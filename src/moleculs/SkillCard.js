@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { updateSkill, removeSkill } from 'logic/skillActions';
+import { updateSkill, removeSkill } from 'actions/skillActions';
 import { Typography, Card, IconButton } from '@mui/material';
 import { CardHeader, CardContent, Avatar } from '@mui/material';
 import { red, green, blue, orange, indigo } from '@mui/material/colors';
@@ -10,7 +10,6 @@ import TextInput from 'atoms/TextInput';
 
 const SkillCard = ({ skill, updateSkill, removeSkill }) => {
   const [edit, setEdit] = useState(false);
-
   const colors = [red, green, blue, orange, indigo];
   const number = skill.title.charCodeAt(0) % 5;
   let avatarColor = colors[number][700];
@@ -25,9 +24,13 @@ const SkillCard = ({ skill, updateSkill, removeSkill }) => {
           </Avatar>
         }
         action={<>
-          <IconButton onClick={() => setEdit(!edit)}>
-            {edit ? <Done /> : <Edit />}
-          </IconButton>
+          {!edit && <IconButton
+            onClick={() => setEdit(true)}
+          ><Edit /></IconButton>}
+          {edit && <IconButton
+            type='submit'
+            form='edit'
+          ><Done /></IconButton>}
           <IconButton onClick={() => removeSkill(skill.id)}>
             <Delete />
           </IconButton>
@@ -51,7 +54,8 @@ const SkillCard = ({ skill, updateSkill, removeSkill }) => {
         >
           {({ values, handleChange, handleSubmit }) => (
             <form
-              onBlur={handleSubmit}
+              id='edit'
+              onSubmit={handleSubmit}
               autoComplete='off'
             >
               <TextInput
@@ -59,7 +63,7 @@ const SkillCard = ({ skill, updateSkill, removeSkill }) => {
                 value={values.description}
                 name='description'
                 type='text'
-                rows={6}
+                rows={5}
                 multiline
               />
             </form>

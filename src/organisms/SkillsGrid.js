@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import Masonry from 'react-masonry-css';
 import SkillCard from 'moleculs/SkillCard';
 
-const breakpoints = { default: 3, 1100: 2, 700: 1 };
+const breakpoints = { default: 2, 1100: 2, 700: 1 };
 
 const SkillsGrid = ({ skills }) => (
   <Box sx={{ mt: 4 }}>

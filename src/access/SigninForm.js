@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signIn } from 'logic/profileActions';
+import { signIn } from 'actions/profileActions';
 import { Redirect } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Button } from '@mui/material';
