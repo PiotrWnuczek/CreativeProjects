@@ -4,7 +4,8 @@ import { updateElement, removeElement } from 'actions/elementActions';
 import { Typography, Card, IconButton } from '@mui/material';
 import { CardHeader, CardContent, Avatar } from '@mui/material';
 import { red, green, blue, orange, indigo } from '@mui/material/colors';
-import { Edit, Done, Download, Delete } from '@mui/icons-material';
+import { Edit, Done, Delete, Download } from '@mui/icons-material';
+import { StarOutline, CheckCircleOutline } from '@mui/icons-material';
 import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
 import fileDownload from 'js-file-download';
@@ -30,6 +31,8 @@ const ElementCard = ({ element, projectid, updateElement, removeElement }) => {
             axios.get(element.url, { responseType: 'blob' })
               .then(res => fileDownload(res.data, 'file.txt'))
           }}><Download /></IconButton>}
+          {element.item === 'note' && <IconButton><StarOutline /></IconButton>}
+          {element.item === 'task' && <IconButton><CheckCircleOutline /></IconButton>}
           {!edit && <IconButton
             onClick={() => setEdit(true)}
           ><Edit /></IconButton>}

@@ -6,9 +6,9 @@ import { isLoaded } from 'react-redux-firebase';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { getFirebase, ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { getFirestore, createFirestoreInstance } from 'redux-firestore';
-import firebaseConfig from 'store/firebaseConfig';
-import rootReducer from 'store/rootReducer';
+import rootReducer from 'reducers/rootReducer';
 import thunk from 'redux-thunk';
+import database from 'database';
 import App from 'App';
 import 'index.css';
 
@@ -23,7 +23,7 @@ const rrfConfig = {
 };
 
 const rrfProps = {
-  firebase: firebaseConfig,
+  firebase: database,
   config: rrfConfig,
   dispatch: store.dispatch,
   createFirestoreInstance,
