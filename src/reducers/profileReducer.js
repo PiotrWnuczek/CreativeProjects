@@ -2,7 +2,7 @@ const initial = {
   error: null
 };
 
-const authReducer = (state = initial, action) => {
+const profileReducer = (state = initial, action) => {
   switch (action.type) {
     case 'SIGNIN_SUCCESS':
       console.log('signin success');
@@ -29,4 +29,4 @@ const authReducer = (state = initial, action) => {
   }
 };
 
-export default authReducer;
+export default profileReducer;

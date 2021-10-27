@@ -47,7 +47,7 @@ const SigninForm = ({ signIn, error, auth }) => (auth.uid ?
 );
 
 const mapStateToProps = (state) => ({
-  error: state.auth.error,
+  error: state.profile.error,
   auth: state.firebase.auth,
 });
 
