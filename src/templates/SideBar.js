@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Drawer, Typography, List, Divider } from '@mui/material';
 import { ListItem, ListItemText, ListItemIcon } from '@mui/material';
 import { PersonOutline, Login, Logout } from '@mui/icons-material';
-import { AddCircleOutline, Subject } from '@mui/icons-material';
+import { AddCircleOutline, Dashboard } from '@mui/icons-material';
 
 const SideBar = ({ sideWidth, auth, signOut }) => {
   const history = useHistory();
@@ -26,12 +26,12 @@ const SideBar = ({ sideWidth, auth, signOut }) => {
   const mainMenu = [
     {
       text: 'Personal Projects',
-      icon: <Subject color='secondary' />,
+      icon: <Dashboard color='secondary' />,
       path: '/personal',
     },
     {
       text: 'Social Projects',
-      icon: <Subject color='secondary' />,
+      icon: <Dashboard color='secondary' />,
       path: '/social',
     },
   ];

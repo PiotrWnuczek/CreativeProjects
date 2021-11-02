@@ -2,39 +2,32 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { removeProject, updateProject } from 'actions/projectActions';
+import { CardHeader, CardContent, CardActions } from '@mui/material';
 import { Typography, Card, IconButton } from '@mui/material';
-import { CardHeader, CardContent } from '@mui/material';
 import { Edit, Done, Delete } from '@mui/icons-material';
+import { Chat, Subject } from '@mui/icons-material';
 import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
 import KeywordsList from 'atoms/KeywordsList';
 import TeamList from 'atoms/TeamList';
+import ChatSection from 'atoms/ChatSection';
 
 const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => {
   const history = useHistory();
   const [edit, setEdit] = useState(false);
+  const [chat, setChat] = useState(false);
 
   return (
     <Card elevation={1}>
       <CardHeader
         title={details.title}
         action={<>
-          {!edit && <IconButton
-            onClick={() => setEdit(true)}
-          ><Edit /></IconButton>}
-          {edit && <IconButton
-            type='submit'
-            form='edit'
-          ><Done /></IconButton>}
-          {details.team.some(i =>
-            i.email === profile.email && i.role === 'admin'
-          ) && <IconButton onClick={() => {
-            removeProject({ type: details.type }, id);
-            history.push('/' + details.type);
-          }}><Delete /></IconButton>}
+          <IconButton onClick={() => setChat(!chat)}>
+            {chat ? <Subject /> : <Chat />}
+          </IconButton>
         </>}
       />
-      <CardContent>
+      {!chat && <CardContent>
         {!edit && <Typography
           variant='body2'
           color='textSecondary'
@@ -86,7 +79,25 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
             </form>
           )}
         </Formik>}
-      </CardContent>
+      </CardContent>}
+      {chat && <CardContent>
+        <ChatSection />
+      </CardContent>}
+      <CardActions disableSpacing>
+        {!edit && <IconButton
+          onClick={() => setEdit(true)}
+        ><Edit /></IconButton>}
+        {edit && <IconButton
+          type='submit'
+          form='edit'
+        ><Done /></IconButton>}
+        {details.team.some(i =>
+          i.email === profile.email && i.role === 'admin'
+        ) && <IconButton onClick={() => {
+          removeProject({ type: details.type }, id);
+          history.push('/' + details.type);
+        }}><Delete /></IconButton>}
+      </CardActions>
     </Card>
   )
 };
