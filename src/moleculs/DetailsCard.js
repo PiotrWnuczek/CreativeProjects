@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { removeProject, updateProject } from 'actions/projectActions';
-import { CardHeader, CardContent, CardActions } from '@mui/material';
-import { Typography, Card, IconButton } from '@mui/material';
-import { Edit, Done, Delete } from '@mui/icons-material';
-import { Chat, Subject } from '@mui/icons-material';
+import { Typography, Card, IconButton, Button } from '@mui/material';
+import { CardHeader, CardContent } from '@mui/material';
+import { Edit, Done, Chat, Subject } from '@mui/icons-material';
 import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
 import KeywordsList from 'atoms/KeywordsList';
@@ -22,9 +21,16 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
       <CardHeader
         title={details.title}
         action={<>
-          <IconButton onClick={() => setChat(!chat)}>
+          {!chat && !edit && <IconButton
+            onClick={() => setEdit(true)}
+          ><Edit /></IconButton>}
+          {!chat && edit && <IconButton
+            type='submit'
+            form='edit'
+          ><Done /></IconButton>}
+          {!edit && <IconButton onClick={() => setChat(!chat)}>
             {chat ? <Subject /> : <Chat />}
-          </IconButton>
+          </IconButton>}
         </>}
       />
       {!chat && <CardContent>
@@ -40,7 +46,7 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
           profile={profile}
           updateProject={updateProject}
         />}
-        {details.type === 'social' && !edit && <TeamList
+        {!edit && details.type === 'social' && <TeamList
           id={id}
           details={details}
           profile={profile}
@@ -79,25 +85,17 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
             </form>
           )}
         </Formik>}
+        {edit && details.team.some(i =>
+          i.email === profile.email && i.role === 'admin'
+        ) && <Button color='secondary' size='small'
+          onClick={() => {
+            removeProject({ type: details.type }, id);
+            history.push('/' + details.type);
+          }}>Delete Project</Button>}
       </CardContent>}
       {chat && <CardContent>
         <ChatSection />
       </CardContent>}
-      <CardActions disableSpacing>
-        {!edit && <IconButton
-          onClick={() => setEdit(true)}
-        ><Edit /></IconButton>}
-        {edit && <IconButton
-          type='submit'
-          form='edit'
-        ><Done /></IconButton>}
-        {details.team.some(i =>
-          i.email === profile.email && i.role === 'admin'
-        ) && <IconButton onClick={() => {
-          removeProject({ type: details.type }, id);
-          history.push('/' + details.type);
-        }}><Delete /></IconButton>}
-      </CardActions>
     </Card>
   )
 };

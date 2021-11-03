@@ -25,6 +25,9 @@ const profileReducer = (state = initial, action) => {
     case 'UPDATEPROFILE_ERROR':
       console.log(action.err);
       return state;
+    case 'REMOVEPROFILE_SUCCESS':
+      console.log('removeprofile success');
+      return state;
     default: return state;
   }
 };

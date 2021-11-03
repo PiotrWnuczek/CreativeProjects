@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateProfile } from 'actions/profileActions';
-import { IconButton, Typography } from '@mui/material';
+import { removeProfile, updateProfile } from 'actions/profileActions';
+import { IconButton, Typography, Button } from '@mui/material';
 import { Card, CardHeader, CardContent } from '@mui/material';
 import { Edit, Done } from '@mui/icons-material';
 import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
 
-const ProfileCard = ({ profile, updateProfile }) => {
+const ProfileCard = ({ profile, removeProfile, updateProfile }) => {
+  const history = useHistory();
   const [edit, setEdit] = useState(false);
 
   return (
@@ -29,7 +31,7 @@ const ProfileCard = ({ profile, updateProfile }) => {
           variant='body2'
           color='textSecondary'
         >
-          {profile.description}
+          {profile.description || 'edit profile and add description'}
         </Typography>}
         {edit && <Formik
           initialValues={{
@@ -64,12 +66,18 @@ const ProfileCard = ({ profile, updateProfile }) => {
             </form>
           )}
         </Formik>}
+        {edit && <Button color='secondary' size='small'
+          onClick={() => {
+            removeProfile();
+            history.push('/signup');
+          }}>Delete Account</Button>}
       </CardContent>
     </Card>
   )
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  removeProfile: () => dispatch(removeProfile()),
   updateProfile: (data) => dispatch(updateProfile(data)),
 });
 

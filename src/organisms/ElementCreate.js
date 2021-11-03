@@ -5,16 +5,16 @@ import { Formik } from 'formik';
 import { Button } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import TextInput from 'atoms/TextInput';
-import SelectInput from 'atoms/SelectInput';
 
 const ElementCreate = ({ createElement, type, projectid }) => {
   const [file, setFile] = useState(null);
+  const [task, setTask] = useState(false);
 
   return (
     <Formik
       initialValues={{
-        item: 'note',
-        content: '',
+        title: '',
+        description: '',
       }}
       onSubmit={(values, { resetForm }) => {
         createElement({ ...values, type }, file, projectid);
@@ -26,32 +26,40 @@ const ElementCreate = ({ createElement, type, projectid }) => {
           onSubmit={handleSubmit}
           autoComplete='off'
         >
-          <SelectInput
+          <TextInput
             onChange={handleChange}
-            value={values.item}
-            items={['note', 'task', 'file']}
-            name='item'
+            value={values.title}
+            name='title'
+            type='text'
           />
           <TextInput
             onChange={handleChange}
-            value={values.content}
-            name='content'
+            value={values.description}
+            name='description'
             type='text'
-            rows={3}
+            rows={2}
             multiline
           />
-          {(values.item === 'file') && <Button
+          <Button
+            onClick={() => setTask(!task)}
+            variant={task ? 'contained' : 'outlined'}
             color='secondary'
-            variant='contained'
+            sx={{ mr: 2 }}
+          >
+            Task
+          </Button>
+          <Button
+            variant={file ? 'contained' : 'outlined'}
+            color='secondary'
             component='label'
             sx={{ mr: 2 }}
           >
-            Upload ({file ? file.name : 'choose file'})
+            {file ? file.name : 'File'}
             <input hidden
               type='file'
               onChange={e => setFile(e.target.files[0])}
             />
-          </Button>}
+          </Button>
           <Button
             type='submit'
             color='secondary'

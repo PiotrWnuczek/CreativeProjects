@@ -5,18 +5,21 @@ import { Formik } from 'formik';
 import { Button } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import TextInput from 'atoms/TextInput';
-import RadioInput from 'atoms/RadioInput';
+import SelectInput from 'atoms/SelectInput';
 
 const ProjectCreate = ({ createProject, history }) => (
   <Formik
     initialValues={{
+      type: 'personal',
       title: '',
       keywords: '',
       description: '',
-      type: 'personal',
     }}
     onSubmit={(values) => {
-      createProject({ ...values, keywords: values.keywords.split(' ') });
+      createProject({
+        ...values,
+        keywords: values.keywords.split(' ')
+      });
       history.push('/' + values.type);
     }}
   >
@@ -25,6 +28,12 @@ const ProjectCreate = ({ createProject, history }) => (
         onSubmit={handleSubmit}
         autoComplete='off'
       >
+        <SelectInput
+          onChange={handleChange}
+          value={values.type}
+          items={['personal', 'social']}
+          name='type'
+        />
         <TextInput
           onChange={handleChange}
           value={values.title}
@@ -44,12 +53,6 @@ const ProjectCreate = ({ createProject, history }) => (
           type='text'
           rows={7}
           multiline
-        />
-        <RadioInput
-          onChange={handleChange}
-          value={values.type}
-          items={['personal', 'social']}
-          name='type'
         />
         <Button
           type='submit'
