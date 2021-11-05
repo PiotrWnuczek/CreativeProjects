@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { updateElement, removeElement } from 'actions/elementActions';
-import { Typography, Card, IconButton } from '@mui/material';
+import { Typography, Card, IconButton, Button } from '@mui/material';
 import { CardHeader, CardContent, Avatar } from '@mui/material';
 import { red, green, blue, orange, indigo } from '@mui/material/colors';
 import { Download, CheckCircleOutline } from '@mui/icons-material';
-import { Edit, Done, Delete } from '@mui/icons-material';
+import { Edit, Done } from '@mui/icons-material';
 import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
 import fileDownload from 'js-file-download';
@@ -27,23 +27,28 @@ const ElementCard = ({ element, projectid, updateElement, removeElement }) => {
           </Avatar>
         }
         action={<>
-          {element.url && <IconButton onClick={() => {
-            axios.get(element.url, { responseType: 'blob' })
-              .then(res => fileDownload(res.data, 'file.txt'))
-          }}><Download /></IconButton>}
-          {element.task && <IconButton><CheckCircleOutline /></IconButton>}
+          {element.url && <IconButton
+            onClick={() => {
+              axios.get(element.url, { responseType: 'blob' })
+                .then(res => fileDownload(res.data, 'file.txt'))
+            }}
+          >
+            <Download />
+          </IconButton>}
+          {element.task && <IconButton>
+            <CheckCircleOutline />
+          </IconButton>}
           {!edit && <IconButton
             onClick={() => setEdit(true)}
-          ><Edit /></IconButton>}
+          >
+            <Edit />
+          </IconButton>}
           {edit && <IconButton
             type='submit'
             form='edit'
-          ><Done /></IconButton>}
-          <IconButton onClick={() => {
-            removeElement({ type: element.type }, projectid, element.id);
-          }}>
-            <Delete />
-          </IconButton>
+          >
+            <Done />
+          </IconButton>}
         </>}
       />
       <CardContent>
@@ -79,6 +84,15 @@ const ElementCard = ({ element, projectid, updateElement, removeElement }) => {
             </form>
           )}
         </Formik>}
+        {edit && <Button
+          color='secondary'
+          size='small'
+          onClick={() => {
+            removeElement({ type: element.type }, projectid, element.id);
+          }}
+        >
+          Delete Element
+        </Button>}
       </CardContent>
     </Card>
   )

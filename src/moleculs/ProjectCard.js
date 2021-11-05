@@ -8,11 +8,10 @@ import { red, green, blue, orange, indigo } from '@mui/material/colors';
 import { FolderOpen, PeopleOutline, People } from '@mui/icons-material';
 
 const ProjectCard = ({ project, profile, updateProject }) => {
-  const history = useHistory();
-
   const colors = [red, green, blue, orange, indigo];
   const number = project.title.charCodeAt(0) % 5;
   let avatarColor = colors[number][700];
+  const history = useHistory();
 
   return (
     <Card elevation={1}>
@@ -29,10 +28,14 @@ const ProjectCard = ({ project, profile, updateProject }) => {
             i.email === profile.email && (i.role === 'member' || i.role === 'admin')
           ) && <IconButton onClick={() => {
             history.push('/' + project.type + '/' + project.id)
-          }}><FolderOpen /></IconButton>}
+          }}>
+              <FolderOpen />
+            </IconButton>}
           {project.team.some(i =>
             i.email === profile.email && i.role === 'wait'
-          ) && <IconButton><People /></IconButton>}
+          ) && <IconButton>
+              <People />
+            </IconButton>}
           {!project.team.some(i =>
             i.email === profile.email
           ) && <IconButton onClick={() => {
@@ -40,7 +43,9 @@ const ProjectCard = ({ project, profile, updateProject }) => {
               type: project.type,
               team: [...project.team, { email: profile.email, role: 'wait' }],
             }, project.id);
-          }}><PeopleOutline /></IconButton>}
+          }}>
+              <PeopleOutline />
+            </IconButton>}
         </>}
       />
       <CardContent>

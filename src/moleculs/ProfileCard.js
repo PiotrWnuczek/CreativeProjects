@@ -9,8 +9,8 @@ import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
 
 const ProfileCard = ({ profile, removeProfile, updateProfile }) => {
-  const history = useHistory();
   const [edit, setEdit] = useState(false);
+  const history = useHistory();
 
   return (
     <Card elevation={1}>
@@ -19,11 +19,15 @@ const ProfileCard = ({ profile, removeProfile, updateProfile }) => {
         action={<>
           {!edit && <IconButton
             onClick={() => setEdit(true)}
-          ><Edit /></IconButton>}
+          >
+            <Edit />
+          </IconButton>}
           {edit && <IconButton
             type='submit'
             form='edit'
-          ><Done /></IconButton>}
+          >
+            <Done />
+          </IconButton>}
         </>}
       />
       <CardContent>
@@ -66,11 +70,16 @@ const ProfileCard = ({ profile, removeProfile, updateProfile }) => {
             </form>
           )}
         </Formik>}
-        {edit && <Button color='secondary' size='small'
+        {edit && <Button
+          color='secondary'
+          size='small'
           onClick={() => {
             removeProfile();
             history.push('/signup');
-          }}>Delete Account</Button>}
+          }}
+        >
+          Delete Account
+        </Button>}
       </CardContent>
     </Card>
   )

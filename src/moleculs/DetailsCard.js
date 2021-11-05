@@ -12,9 +12,9 @@ import TeamList from 'atoms/TeamList';
 import ChatSection from 'atoms/ChatSection';
 
 const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => {
-  const history = useHistory();
   const [edit, setEdit] = useState(false);
   const [chat, setChat] = useState(false);
+  const history = useHistory();
 
   return (
     <Card elevation={1}>
@@ -23,12 +23,18 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
         action={<>
           {!chat && !edit && <IconButton
             onClick={() => setEdit(true)}
-          ><Edit /></IconButton>}
+          >
+            <Edit />
+          </IconButton>}
           {!chat && edit && <IconButton
             type='submit'
             form='edit'
-          ><Done /></IconButton>}
-          {!edit && <IconButton onClick={() => setChat(!chat)}>
+          >
+            <Done />
+          </IconButton>}
+          {!edit && <IconButton
+            onClick={() => setChat(!chat)}
+          >
             {chat ? <Subject /> : <Chat />}
           </IconButton>}
         </>}
@@ -87,11 +93,16 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
         </Formik>}
         {edit && details.team.some(i =>
           i.email === profile.email && i.role === 'admin'
-        ) && <Button color='secondary' size='small'
+        ) && <Button
+          color='secondary'
+          size='small'
           onClick={() => {
             removeProject({ type: details.type }, id);
             history.push('/' + details.type);
-          }}>Delete Project</Button>}
+          }}
+        >
+            Delete Project
+          </Button>}
       </CardContent>}
       {chat && <CardContent>
         <ChatSection />

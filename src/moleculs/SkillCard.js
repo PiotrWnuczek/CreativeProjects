@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { updateSkill, removeSkill } from 'actions/skillActions';
-import { Typography, Card, IconButton } from '@mui/material';
+import { Typography, Card, IconButton, Button } from '@mui/material';
 import { CardHeader, CardContent, Avatar } from '@mui/material';
 import { red, green, blue, orange, indigo } from '@mui/material/colors';
-import { Edit, Done, Delete } from '@mui/icons-material';
+import { Edit, Done } from '@mui/icons-material';
 import { Formik } from 'formik';
 import TextInput from 'atoms/TextInput';
 
@@ -26,14 +26,15 @@ const SkillCard = ({ skill, updateSkill, removeSkill }) => {
         action={<>
           {!edit && <IconButton
             onClick={() => setEdit(true)}
-          ><Edit /></IconButton>}
+          >
+            <Edit />
+          </IconButton>}
           {edit && <IconButton
             type='submit'
             form='edit'
-          ><Done /></IconButton>}
-          <IconButton onClick={() => removeSkill(skill.id)}>
-            <Delete />
-          </IconButton>
+          >
+            <Done />
+          </IconButton>}
         </>}
       />
       <CardContent>
@@ -69,6 +70,13 @@ const SkillCard = ({ skill, updateSkill, removeSkill }) => {
             </form>
           )}
         </Formik>}
+        {edit && <Button
+          color='secondary'
+          size='small'
+          onClick={() => { removeSkill(skill.id) }}
+        >
+          Delete Skill
+        </Button>}
       </CardContent>
     </Card>
   )
