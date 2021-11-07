@@ -1,5 +1,5 @@
 const initial = {
-  error: null
+  error: null,
 };
 
 const profileReducer = (state = initial, action) => {

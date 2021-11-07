@@ -1,29 +1,29 @@
 const initial = {
-  elements: [],
+  keywords: [],
 };
 
-const elementReducer = (state = initial, action) => {
+const keywordReducer = (state = initial, action) => {
   switch (action.type) {
-    case 'CREATEELEMENT_SUCCESS':
+    case 'CREATEPKEYWORD_SUCCESS':
       console.log(action.data);
       return state;
-    case 'CREATEELEMENT_ERROR':
+    case 'CREATEPKEYWORD_ERROR':
       console.log(action.err);
       return state;
-    case 'UPDATEELEMENT_SUCCESS':
+    case 'UPDATEPKEYWORD_SUCCESS':
       console.log(action.data);
       return state;
-    case 'UPDATEELEMENT_ERROR':
+    case 'UPDATEPKEYWORD_ERROR':
       console.log(action.err);
       return state;
-    case 'REMOVEELEMENT_SUCCESS':
+    case 'REMOVEPKEYWORD_SUCCESS':
       console.log(action.id);
       return state;
-    case 'REMOVEELEMENT_ERROR':
+    case 'REMOVEPKEYWORD_ERROR':
       console.log(action.err);
       return state;
     default: return state;
   }
 };
 
-export default elementReducer;
+export default keywordReducer;

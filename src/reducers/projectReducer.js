@@ -1,5 +1,5 @@
 const initial = {
-  projects: []
+  projects: [],
 };
 
 const projectReducer = (state = initial, action) => {

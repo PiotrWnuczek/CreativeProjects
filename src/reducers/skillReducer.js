@@ -1,5 +1,5 @@
 const initial = {
-  skills: []
+  skills: [],
 };
 
 const skillReducer = (state = initial, action) => {
