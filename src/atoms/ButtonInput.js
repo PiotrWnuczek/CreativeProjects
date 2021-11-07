@@ -1,15 +1,15 @@
 import React from 'react';
 import { FormControl, OutlinedInput, IconButton } from '@mui/material';
-import { Done } from '@mui/icons-material';
 
-const ButtonInput = ({ name, ...props }) => (
+const ButtonInput = ({ name, icon, ...props }) => (
   <FormControl fullWidth color='secondary'>
     <OutlinedInput {...props}
       sx={{ mt: 2, mb: 2 }}
+      placeholder={name}
       name={name}
       endAdornment={
-        <IconButton type='submit'>
-          <Done />
+        <IconButton size='small' type='submit'>
+          {icon}
         </IconButton>
       }
     />
