@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createSkill } from 'actions/skillActions';
+import { createKeyword } from 'actions/keywordActions';
 import { Formik } from 'formik';
 import { Button } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import TextInput from 'atoms/TextInput';
 
-const SkillCreate = ({ createSkill }) => (
+const SkillCreate = ({ createSkill, createKeyword }) => (
   <Formik
     initialValues={{
       title: '',
@@ -14,6 +15,9 @@ const SkillCreate = ({ createSkill }) => (
     }}
     onSubmit={(values, { resetForm }) => {
       createSkill({ ...values });
+      createKeyword({
+        word: values.title, quantity: 1
+      });
       resetForm();
     }}
   >
@@ -51,6 +55,7 @@ const SkillCreate = ({ createSkill }) => (
 
 const mapDispatchToProps = (dispatch) => ({
   createSkill: (data) => dispatch(createSkill(data)),
+  createKeyword: (data) => dispatch(createKeyword(data)),
 });
 
 export default connect(null, mapDispatchToProps)

@@ -18,7 +18,7 @@ const ProjectCreate = ({ createProject, history }) => (
     onSubmit={(values) => {
       createProject({
         ...values,
-        keywords: values.keywords.split(' ')
+        keywords: values.keywords.split(' '),
       });
       history.push('/' + values.type);
     }}

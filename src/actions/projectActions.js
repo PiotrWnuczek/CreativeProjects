@@ -7,6 +7,7 @@ export const createProject = (data) => (dispatch, getState, { getFirestore }) =>
   const ref = data.type === 'personal' ? personal : social;
   ref.add({
     ...data,
+    chat: [],
     team: [{ email: profile.email, role: 'admin' }],
     authorid: authorid,
     createdat: new Date(),

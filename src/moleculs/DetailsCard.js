@@ -50,13 +50,11 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
           id={id}
           details={details}
           profile={profile}
-          updateProject={updateProject}
         />}
         {!edit && details.type === 'social' && <TeamList
           id={id}
           details={details}
           profile={profile}
-          updateProject={updateProject}
         />}
         {edit && <Formik
           initialValues={{
@@ -105,7 +103,11 @@ const DetailsCard = ({ details, id, profile, removeProject, updateProject }) => 
           </Button>}
       </CardContent>}
       {chat && <CardContent>
-        <ChatSection />
+        <ChatSection
+          id={id}
+          details={details}
+          profile={profile}
+        />
       </CardContent>}
     </Card>
   )

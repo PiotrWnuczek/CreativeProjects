@@ -4,22 +4,22 @@ const initial = {
 
 const keywordReducer = (state = initial, action) => {
   switch (action.type) {
-    case 'CREATEPKEYWORD_SUCCESS':
+    case 'CREATEKEYWORD_SUCCESS':
       console.log(action.data);
       return state;
-    case 'CREATEPKEYWORD_ERROR':
+    case 'CREATEKEYWORD_ERROR':
       console.log(action.err);
       return state;
-    case 'UPDATEPKEYWORD_SUCCESS':
+    case 'UPDATEKEYWORD_SUCCESS':
       console.log(action.data);
       return state;
-    case 'UPDATEPKEYWORD_ERROR':
+    case 'UPDATEKEYWORD_ERROR':
       console.log(action.err);
       return state;
-    case 'REMOVEPKEYWORD_SUCCESS':
+    case 'REMOVEKEYWORD_SUCCESS':
       console.log(action.id);
       return state;
-    case 'REMOVEPKEYWORD_ERROR':
+    case 'REMOVEKEYWORD_ERROR':
       console.log(action.err);
       return state;
     default: return state;
