@@ -27,10 +27,10 @@ const ElementCard = ({ element, projectid, updateElement, removeElement }) => {
           </Avatar>
         }
         action={<>
-          {element.url && <IconButton
+          {element.fileurl && <IconButton
             onClick={() => {
-              axios.get(element.url, { responseType: 'blob' })
-                .then(res => fileDownload(res.data, 'file.txt'))
+              axios.get(element.fileurl, { responseType: 'blob' })
+                .then(res => fileDownload(res.data, element.filename))
             }}
           >
             <Download />

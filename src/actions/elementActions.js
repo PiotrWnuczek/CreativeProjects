@@ -16,7 +16,8 @@ export const createElement = (data, file, projectid) => (
         ...data,
         authorid: authorid,
         createdat: new Date(),
-        url,
+        filename: file.name,
+        fileurl: url,
       })
     ))
   )).then(() => {

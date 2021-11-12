@@ -1,8 +1,14 @@
 export const createKeyword = (data) => (dispatch, gs, { getFirestore }) => {
   const firestore = getFirestore();
   const ref = firestore.collection('keywords');
-  ref.add({
-    ...data,
+
+  ref.where('word', '==', data.word).get().then((snapshot) => {
+    console.log(snapshot.length);
+    snapshot.forEach((doc) => { console.log(doc.id) });
+  }).then(() => {
+    ref.add({
+      ...data,
+    })
   }).then(() => {
     dispatch({ type: 'CREATEKEYWORD_SUCCESS', data });
   }).catch((err) => {
