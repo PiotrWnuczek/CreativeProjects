@@ -13,13 +13,15 @@ const SocialProjects = ({ social }) => (
 
 const mapStateToProps = (state) => ({
   social: state.firestore.ordered.social,
+  profile: state.firebase.profile,
 });
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([
+  firestoreConnect(props => [
     {
       collection: 'projects',
+      where: [['team', 'array-contains', { email: 'piotrantoniwnuczek@gmail.com', role: 'admin' }]],
       orderBy: ['createdat', 'desc'],
       storeAs: 'social',
     },
