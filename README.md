@@ -1,3 +1,9 @@
 # CreativeProjects
 
-Creative projects taking application programmed in React and Material UI prepared on the basis of a tutorial about combining React and Material UI.
+## Application for managing tasks and creating individual or team projects
+
+### Technologies:
+
+- Language: JavaScript
+- Frameworks: React, Redux, MaterialUI
+- BackEnd: Firebase
