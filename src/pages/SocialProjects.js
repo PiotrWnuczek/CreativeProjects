@@ -18,10 +18,9 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect(props => [
+  firestoreConnect([
     {
       collection: 'projects',
-      where: [['team', 'array-contains', { email: 'piotrantoniwnuczek@gmail.com', role: 'admin' }]],
       orderBy: ['createdat', 'desc'],
       storeAs: 'social',
     },

@@ -26,7 +26,7 @@ const theme = createTheme({
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <MainLayout>
         <Switch>
           <Route path='/signin' component={SigninForm} />
